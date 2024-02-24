@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply font-header;
+  }
+
+  body {
+    background-image: url("/hero.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top right;
+
+    @apply bg-tilli-50 font-sans;
+  }
+
+  html[data-mode="dark"] body {
+    @apply bg-dilli-800;
+  }
+}
