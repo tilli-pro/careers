@@ -6,8 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum SocialLink {
+  GITHUB
+  LINKEDIN
+  TWITTER
+  DEVTO
+  MEDIUM
+  PERSONAL
+  DRIBBBLE
 }
 
 model JobPostingQuestion {
@@ -36,12 +46,25 @@ model JobPostingApplicantAnswer {
   @@unique([postingId, applicantId, questionId])
 }
 
-model JobPosting {
-  id          String @id @default(cuid())
-  title       String
-  description String // should be max 180 chars
-  post        String // markdown string
+model JobLocation {
+  id       String @id @default(cuid())
+  location String
 
+  postings JobPosting[]
+}
+
+model JobPosting {
+  id             String       @id @default(cuid())
+  slug           String       @unique
+  title          String
+  description    String // should be max 180 chars
+  post           String // markdown string
+  allowedSocials SocialLink[] @default([LINKEDIN, GITHUB])
+  salaryRange    Int[]
+  remote         Boolean      @default(false)
+
+  location        JobLocation   @relation(fields: [locationId], references: [id])
+  locationId      String
   department      Department    @relation(fields: [departmentId], references: [id])
   departmentId    String
   hiringManager   HiringManager @relation(fields: [hiringManagerId], references: [id])
@@ -55,6 +78,13 @@ model JobPosting {
 }
 
 model JobApplication {
+  legalName     String
+  preferredName String
+  email         String
+  phoneNums     String[] @default([])
+  addresses     String[] @default([])
+  resumeUrl     String
+
   posting   JobPosting @relation(fields: [postingId], references: [id])
   postingId String
 
@@ -80,7 +110,9 @@ model Applicant {
 }
 
 model Department {
-  id       String       @id @default(cuid())
+  id   String @id @default(cuid())
+  name String
+
   postings JobPosting[]
 }
 
