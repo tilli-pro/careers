@@ -6,15 +6,21 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
+const defaultInclude = {
+  department: true,
+  location: true,
+  hiringManager: {
+    include: {
+      user: true,
+    },
+  },
+  questions: true,
+};
+
 export const postRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
     return ctx.db.jobPosting.findMany({
-      include: {
-        department: true,
-        location: true,
-        hiringManager: true,
-        questions: true,
-      }
+      include: defaultInclude,
     });
   }),
   bySlug: publicProcedure
@@ -22,14 +28,9 @@ export const postRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return ctx.db.jobPosting.findFirst({
         where: {
-          slug: input.slug
+          slug: input.slug,
         },
-        include: {
-          department: true,
-          location: true,
-          hiringManager: true,
-          questions: true,
-        }
-      })
+        include: defaultInclude,
+      });
     }),
 });

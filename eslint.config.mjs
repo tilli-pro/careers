@@ -1,5 +1,10 @@
-import next from "@tilli-pro/eslint-config/next.mjs"
+import next from "@tilli-pro/eslint-config/next.mjs";
 
 export default [
-  ...next
-]
+  ...next,
+  {
+    rules: {
+      "@next/next/no-duplicate-head": "off",
+    },
+  },
+];

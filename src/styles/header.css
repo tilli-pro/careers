@@ -1,0 +1,23 @@
+:root[data-mode="dark"] .bg-tilli::before {
+  filter: invert(100%);
+}
+
+.theme-toggle path {
+  @apply transition-colors duration-150;
+}
+
+.theme-toggle path:nth-child(1) {
+  @apply fill-inherit stroke-inherit;
+}
+
+.theme-toggle path:nth-child(n + 2) {
+  @apply fill-amber-500 stroke-amber-500;
+}
+
+:root[data-mode="dark"] .theme-toggle path:nth-child(1) {
+  @apply fill-blue-500 stroke-blue-500;
+}
+
+:root[data-mode="dark"] .theme-toggle path:nth-child(n + 2) {
+  @apply fill-inherit stroke-inherit;
+}
