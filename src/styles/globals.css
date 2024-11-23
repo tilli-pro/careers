@@ -79,21 +79,31 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors font-sans;
+    @apply bg-background text-foreground font-sans;
   }
-  
-  h1, h2, h3 {
+
+  body {
+    @apply isolate transition-colors duration-300 ease-in-out;
+  }
+
+  header {
+    @apply transition-all duration-150 ease-linear;
+  }
+
+  h1,
+  h2,
+  h3 {
     @apply font-bold font-serif;
   }
-  
+
   h1 {
     @apply text-4xl;
   }
-  
+
   h2 {
     @apply text-2xl;
   }
-  
+
   h3 {
     @apply text-xl;
   }

@@ -1,29 +1,35 @@
 {
   "locations": [
     {
-      "location": "McLean, VA"
+      "location": "McLean, VA",
+      "slug": "mclean-va"
     },
     {
-      "location": "Washington, DC"
+      "location": "Washington, DC",
+      "slug": "washington-dc"
     },
     {
-      "location": "New York, NY"
+      "location": "New York, NY",
+      "slug": "new-york-ny"
     }
   ],
   "departments": [
     {
-      "name": "Engineering"
+      "name": "Engineering",
+      "slug": "engineering"
     },
     {
-      "name": "Design"
+      "name": "Design",
+      "slug": "design"
     },
     {
-      "name": "Sales"
+      "name": "Sales",
+      "slug": "sales"
     }
   ],
   "hiringManagers": [
     {
-      "name":"Ibrahim Ali",
+      "name": "Ibrahim Ali",
       "email": "ibrahims@tilli.pro"
     },
     {
@@ -41,8 +47,15 @@
       "slug": "fse-1122",
       "description": "",
       "post": "./job-fullstack.md",
-      "allowedSocials": ["PERSONAL", "GITHUB", "LINKEDIN"],
-      "salaryRange": [70000, 120000],
+      "allowedSocials": [
+        "PERSONAL",
+        "GITHUB",
+        "LINKEDIN"
+      ],
+      "salaryRange": [
+        70000,
+        120000
+      ],
       "location": 0,
       "department": 0,
       "hiringManager": 0
@@ -52,8 +65,15 @@
       "slug": "doe-4853",
       "description": "",
       "post": "./job-devops.md",
-      "allowedSocials": ["PERSONAL", "GITHUB", "LINKEDIN"],
-      "salaryRange": [90000, 160000],
+      "allowedSocials": [
+        "PERSONAL",
+        "GITHUB",
+        "LINKEDIN"
+      ],
+      "salaryRange": [
+        90000,
+        160000
+      ],
       "location": 2,
       "department": 0,
       "hiringManager": 1
@@ -63,8 +83,16 @@
       "slug": "pde-1010",
       "description": "",
       "post": "./job-designer.md",
-      "allowedSocials": ["PERSONAL", "GITHUB", "LINKEDIN", "DRIBBBLE"],
-      "salaryRange": [60000, 85000],
+      "allowedSocials": [
+        "PERSONAL",
+        "GITHUB",
+        "LINKEDIN",
+        "DRIBBBLE"
+      ],
+      "salaryRange": [
+        60000,
+        85000
+      ],
       "location": 2,
       "department": 1,
       "hiringManager": 2

@@ -84,10 +84,22 @@ export default {
             height: "0",
           },
         },
+        "pulse-once": {
+          "0%": {
+            outline: "solid 1px hsl(var(--muted))",
+          },
+          "50%": {
+            outline: "solid 1px hsl(var(--primary))",
+          },
+          "100%": {
+            outline: "solid 1px hsl(var(--secondary))",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-once": "pulse-once 1.2s 2 ease-in",
       },
     },
   },

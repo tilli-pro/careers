@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useLayoutEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 import CookieJS from "js-cookie";
 
@@ -11,8 +17,14 @@ const getTheme = () =>
         | "light"
         | "dark");
 
-const ThemeContext = createContext<{ theme: "light" | "dark" }>({
+const ThemeContext = createContext<{
+  theme: "light" | "dark";
+  setTheme: (theme: "light" | "dark") => void;
+  toggleTheme: () => void;
+}>({
   theme: getTheme(),
+  setTheme: () => {},
+  toggleTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -20,7 +32,7 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<"light" | "dark">(getTheme());
+  const [reactTheme, setReactTheme] = useState<"light" | "dark">(getTheme());
 
   useLayoutEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -31,7 +43,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
         ) {
           const documentElement = mutation.target as HTMLElement;
           const mode = documentElement.dataset.mode;
-          setTheme(mode === "dark" ? "light" : "dark");
+          setReactTheme(mode === "dark" ? "dark" : "light");
         }
       });
     });
@@ -47,7 +59,27 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
     };
   }, []);
 
+  const setTheme = (theme: "light" | "dark") => {
+    setReactTheme(theme);
+    document.documentElement.dataset.mode = theme;
+    CookieJS.set("__next_theme", theme, {
+      sameSite: "lax",
+    });
+  };
+
+  const toggleTheme = () => {
+    const currentTheme = (document.documentElement.dataset.mode ?? "light") as
+      | "light"
+      | "dark";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme }}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider
+      value={{ theme: reactTheme, setTheme: setTheme, toggleTheme }}
+    >
+      {children}
+    </ThemeContext.Provider>
   );
 };

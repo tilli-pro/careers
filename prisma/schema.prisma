@@ -49,6 +49,7 @@ model JobPostingApplicantAnswer {
 model JobLocation {
   id       String @id @default(cuid())
   location String
+  slug     String @unique // used for query params
 
   postings JobPosting[]
 }
@@ -112,6 +113,7 @@ model Applicant {
 model Department {
   id   String @id @default(cuid())
   name String
+  slug String @unique // used for query params
 
   postings JobPosting[]
 }
