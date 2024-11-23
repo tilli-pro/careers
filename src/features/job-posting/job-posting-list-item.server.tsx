@@ -9,9 +9,10 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
   description,
   department,
   location,
+  hiringManager,
 }) => {
   return (
-    <section>
+    <section className="box-border flex flex-row rounded border border-border p-4 drop-shadow">
       <h2>{title}</h2>
       <p>{department.name}</p>
       <p>{location.location}</p>

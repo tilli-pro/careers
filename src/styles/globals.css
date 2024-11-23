@@ -79,11 +79,22 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors font-sans;
   }
-
-  body,
-  header {
-    @apply transition-colors;
+  
+  h1, h2, h3 {
+    @apply font-bold font-serif;
+  }
+  
+  h1 {
+    @apply text-4xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+  
+  h3 {
+    @apply text-xl;
   }
 }

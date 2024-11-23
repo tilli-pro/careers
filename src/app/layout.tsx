@@ -1,10 +1,17 @@
-import { Noto_Sans, Outfit, Prompt, Space_Grotesk } from "next/font/google";
+import {
+  Lora,
+  Noto_Sans,
+  Outfit,
+  Prompt,
+  Space_Grotesk,
+} from "next/font/google";
 import { cookies, headers } from "next/headers";
 
 import { type Metadata } from "next";
 
 import Header from "~/components/structure/header";
 import { ThemeProvider } from "~/features/theme/use-theme";
+import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 import "~/styles/header.css";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -16,9 +23,16 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const Font = Prompt({
+const HeaderFont = Prompt({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
+  subsets: ["latin-ext"],
+  variable: "--font-sans",
+});
+
+const BodyFont = Lora({
+  weight: "variable",
+  subsets: ["latin-ext"],
+  variable: "--font-serif",
 });
 
 export default async function RootLayout({
@@ -35,7 +49,11 @@ export default async function RootLayout({
 
   return (
     <ThemeProvider>
-      <html lang="en" className={`${Font.className}`} data-mode={theme}>
+      <html
+        lang="en"
+        className={`${HeaderFont.variable} ${BodyFont.variable}`}
+        data-mode={theme}
+      >
         <body>
           <Header />
           <TRPCReactProvider>

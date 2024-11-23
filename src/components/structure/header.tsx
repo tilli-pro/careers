@@ -89,7 +89,7 @@ const navigationMenuTriggerStyle = cva(
 
 const Header: React.FC = () => {
   return (
-    <header className="sticky top-0 mx-auto flex max-w-screen-lg items-center justify-between gap-4 border-b border-zinc-800 bg-background bg-opacity-40 p-3">
+    <header className="sticky top-0 z-10 mx-auto flex max-w-screen-lg items-center justify-between gap-4 border-b border-zinc-800 bg-background bg-opacity-40 p-3">
       <div className="flex items-center justify-start gap-4">
         <Link href="/">
           <Image
@@ -113,8 +113,8 @@ const Header: React.FC = () => {
                     className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/10 to-muted/50 p-6 no-underline outline-none focus:shadow-md"
                     noChildrenWrapper
                   >
-                    <div className="z-10 mb-2 mt-4 text-lg font-medium tracking-widest">
-                      Tilli
+                    <div className="z-10 mb-2 mt-4 text-4xl font-medium lowercase tracking-wider">
+                      tilli
                     </div>
                     <p className="z-10 text-sm leading-tight text-muted-foreground">
                       Transform The Way You Do Business

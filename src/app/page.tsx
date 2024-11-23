@@ -8,9 +8,11 @@ export default async function Home() {
   console.log(openRoles);
   return (
     <BasePage>
-      {openRoles.map((role) => (
-        <JobPostingListItem key={role.id} {...role} />
-      ))}
+      <div className="my-4 flex h-full w-full flex-col gap-4">
+        {openRoles.map((role) => (
+          <JobPostingListItem key={role.id} {...role} />
+        ))}
+      </div>
     </BasePage>
   );
 }
