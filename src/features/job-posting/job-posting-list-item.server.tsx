@@ -34,8 +34,16 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
   hiringManager,
 }) => {
   const [start, end] = salaryRange;
+
+  const descWords = description?.split(" ") ?? [];
+  const descLength = descWords.length;
+  const shortDescription = descWords
+    .slice(0, Math.min(20, descLength))
+    .concat(descLength > 20 ? "..." : [])
+    .join(" ");
+
   return (
-    <section className="box-border flex flex-row items-stretch gap-4 rounded border border-border drop-shadow transition-colors duration-150 has-[a.role:hover]:border-blue-400">
+    <section className="box-border grid grid-flow-col grid-cols-2 grid-rows-1 items-center gap-4 rounded border border-border drop-shadow transition-colors duration-150 has-[a.role:hover]:border-blue-400 md:grid-cols-3">
       <div className="flex flex-col gap-1 p-4">
         <h2 className="">{title}</h2>
         <div className="flex flex-row gap-2">
@@ -61,9 +69,18 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
           {fmtCurrency(start ?? NaN)} - {fmtCurrency(end ?? NaN)}
         </p>
       </div>
+      {!!description && (
+        <div className="hidden w-[400px] flex-col items-start justify-center self-stretch p-4 md:flex">
+          <div className="flex h-full flex-col items-start justify-center border-l border-zinc-300 pl-4 dark:border-zinc-900">
+            <p className="text-pretty text-sm leading-none text-primary opacity-90">
+              {shortDescription}
+            </p>
+          </div>
+        </div>
+      )}
       <Link
         href={`/roles/${slug}`}
-        className="role group ml-auto flex items-center self-stretch bg-transparent p-6 transition-colors duration-150 hover:bg-blue-500"
+        className="role group -mr-1 ml-auto flex items-center self-stretch rounded-r bg-transparent p-6 transition-colors duration-150 hover:bg-blue-500"
       >
         <ArrowRight className="group-hover:text-white" />
       </Link>

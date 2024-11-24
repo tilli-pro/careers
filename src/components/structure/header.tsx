@@ -192,7 +192,10 @@ const Header: React.FC = async () => {
           <DrawerTrigger asChild>
             <Button
               tabIndex={0}
-              className="animate-pulse-once fixed bottom-4 right-4"
+              className={cn(
+                "fixed bottom-4 right-4",
+                !visited && "animate-pulse-once",
+              )}
               variant="outline"
             >
               <Menu />
@@ -200,7 +203,7 @@ const Header: React.FC = async () => {
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>tilli Careers</DrawerTitle>
+              <DrawerTitle className="text-2xl">tilli Careers</DrawerTitle>
               <DrawerDescription>
                 Let's build something together.
               </DrawerDescription>

@@ -45,7 +45,7 @@
     {
       "title": "Fullstack Engineer",
       "slug": "fse-1122",
-      "description": "",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc.",
       "post": "./job-fullstack.md",
       "allowedSocials": [
         "PERSONAL",
@@ -63,7 +63,7 @@
     {
       "title": "DevOps Engineer",
       "slug": "doe-4853",
-      "description": "",
+      "description": "Help manage our growing infrastructure and ensure our services are always up and running on our AWS stack.",
       "post": "./job-devops.md",
       "allowedSocials": [
         "PERSONAL",
@@ -81,7 +81,7 @@
     {
       "title": "Product Designer",
       "slug": "pde-1010",
-      "description": "",
+      "description": "Design the next generation of our product and work closely with our engineering team to bring it to life.",
       "post": "./job-designer.md",
       "allowedSocials": [
         "PERSONAL",

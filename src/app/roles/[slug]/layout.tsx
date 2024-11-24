@@ -1,9 +1,7 @@
+import BasePage from "~/components/structure/base-page";
+
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return (
-    <div>
-      { children }
-    </div>
-  );
-}
+  return <BasePage>{children}</BasePage>;
+};
 
 export default Layout;

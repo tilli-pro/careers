@@ -21,8 +21,11 @@ enum SocialLink {
 }
 
 model JobPostingQuestion {
-  id       String @id @default(cuid())
-  question String
+  id          String  @id @default(cuid())
+  question    String  @default("")
+  placeholder String  @default("")
+  required    Boolean @default(true)
+  longForm    Boolean @default(false)
 
   posting   JobPosting @relation(fields: [postingId], references: [id])
   postingId String
