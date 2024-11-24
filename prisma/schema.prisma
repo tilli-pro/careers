@@ -88,6 +88,7 @@ model JobApplication {
   phoneNums     String[] @default([])
   addresses     String[] @default([])
   resumeUrl     String
+  attribution   String? // where did you hear about us?
 
   posting   JobPosting @relation(fields: [postingId], references: [id])
   postingId String
