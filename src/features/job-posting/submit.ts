@@ -3,7 +3,7 @@
 import { notFound, redirect } from "next/navigation";
 
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import type { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { create } from "domain";
 
 import { db } from "~/server/db";
@@ -19,6 +19,9 @@ const client = new S3Client({
   },
 });
 
+const applicationValidator =
+  Prisma.validator<Prisma.JobApplicationUncheckedCreateInput>();
+
 export const submitJobApp = async (data: FormData) => {
   const jobId = data.get("post_id") as string;
   const slug = data.get("post_slug") as string;
@@ -32,9 +35,21 @@ export const submitJobApp = async (data: FormData) => {
   if (!email) {
     return redirect(`/roles/${slug}?failed=email`);
   }
+  data.delete("email");
 
-  const application: Partial<Prisma.JobApplicationCreateWithoutApplicantInput> =
-    {};
+  const application = applicationValidator({
+    email,
+    legalName: "" as string,
+    preferredName: "" as string,
+    postingId: jobId,
+    applicantId: "" as string,
+    resumeUrl: "" as string,
+    attribution: "" as string,
+    answers: {
+      create:
+        [] as Prisma.JobPostingApplicantAnswerUncheckedCreateNestedManyWithoutApplicationInput["create"],
+    },
+  });
   let applicant = await db.applicant.findFirst({
     where: { user: { email } },
   });
@@ -49,8 +64,7 @@ export const submitJobApp = async (data: FormData) => {
       },
     });
   }
-  application.email = email as string;
-  data.delete("email");
+  application.applicantId = applicant.id;
 
   const name = data.get("name") as string;
   application.legalName = name;
@@ -83,18 +97,11 @@ export const submitJobApp = async (data: FormData) => {
     if (/social-/.test(question)) {
       // handle adding relevant socials
     } else if (/answerid-/.test(question)) {
-      if (!application.answers) {
-        application.answers = { connect: [] };
-      }
-
-      if (Array.isArray(application.answers.connect)) {
-        application.answers.connect.push({
-          id: undefined,
+      if (Array.isArray(application.answers.create)) {
+        application.answers.create.push({
           questionId: question,
-          postingId: jobId,
-          applicantId: applicant.id,
           answer: answer as string,
-        });
+        } as any);
       }
     } else {
       console.log({
@@ -105,6 +112,13 @@ export const submitJobApp = async (data: FormData) => {
   }
 
   console.log(application);
+  try {
+    const applicationSubmission = await db.jobApplication.create({
+      data: application,
+    });
+  } catch (e) {
+    return redirect(`/roles/${slug}?failed=create`);
+  }
 
   return redirect(`/roles/${slug}?submitted`);
 };
