@@ -141,7 +141,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
 
       <aside
         id="apply"
-        className="col-span-3 mb-8 mt-4 self-start rounded border border-muted p-4 md:sticky md:top-20 md:col-span-1"
+        className="col-span-3 mb-8 mt-4 self-start rounded p-4 md:sticky md:top-20 md:col-span-1"
       >
         {submissionSuccessful ? (
           <Alert className="mb-6">

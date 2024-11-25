@@ -126,16 +126,37 @@ export const submitJobApp = async (data: FormData) => {
     });
 
     if (applicationSubmission) {
+      const role = await db.jobPosting.findFirst({
+        where: { id: applicationSubmission.postingId },
+        include: {
+          hiringManager: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      });
+
       // TODO: create nudge template for job app submission
       // for both candidate and to notify interviewers/ hiring managers
-      await sendNudgeEmail({ name, email }, 1234, []);
-      await sendNudgeEmail(
-        { name: "Ibrahim Ali", email: "ibrahims@tilli.pro" },
-        5678,
-        [],
-      );
+      try {
+        await Promise.all([
+          sendNudgeEmail({ name, email }, 1234, []),
+          role
+            ? sendNudgeEmail(
+                {
+                  name: role.hiringManager.user.name ?? "",
+                  email: role.hiringManager.user.email ?? "",
+                },
+                5678,
+                [],
+              )
+            : void null,
+        ]);
+      } catch (e) {}
     }
   } catch (e) {
+    console.log(e);
     return redirect(`/roles/${slug}?failed=create`);
   }
 

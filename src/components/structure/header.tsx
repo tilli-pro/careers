@@ -121,7 +121,7 @@ const Header: React.FC = async () => {
   const visited = cookieStore.get("__T_N_VISITOR");
 
   return (
-    <header className="sticky top-0 z-10 w-full bg-background bg-opacity-40">
+    <header className="sticky top-0 z-50 w-full bg-background bg-opacity-40">
       <div className="mx-auto flex max-w-screen-lg items-center gap-4 rounded-b border-b border-zinc-300 p-3 dark:border-zinc-900">
         <Link href="/">
           <Image

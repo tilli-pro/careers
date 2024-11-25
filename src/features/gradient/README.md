@@ -1,0 +1,1 @@
+Vendored without mercy from: https://github.com/awinogrodzki/aurora-gradient
