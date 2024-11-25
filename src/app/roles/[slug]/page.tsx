@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 
 import * as runtime from "react/jsx-runtime";
 import { compile, run } from "@mdx-js/mdx";
-import type { SocialLink } from "@prisma/client";
+import { SocialLink } from "@prisma/client";
 import { Check } from "lucide-react";
+import { Dribbble, Github, Globe, Linkedin, Twitter } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -54,6 +55,7 @@ const Question: React.FC<(typeof defaultQuestions)[number]> = ({
   longForm,
 }) => {
   const Component = longForm ? Textarea : Input;
+
   return (
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor={question}>
@@ -74,7 +76,32 @@ const Question: React.FC<(typeof defaultQuestions)[number]> = ({
 
 const Social: React.FC<{ social: SocialLink }> = ({ social }) => {
   const placeholder = social.slice(0, 1) + social.slice(1).toLocaleLowerCase();
-  return <Input type="url" name={social} placeholder={placeholder} />;
+
+  const SocialIcon = (() => {
+    switch (social) {
+      case SocialLink.GITHUB:
+        return Github;
+      case SocialLink.DRIBBBLE:
+        return Dribbble;
+      case SocialLink.LINKEDIN:
+        return Linkedin;
+      case SocialLink.TWITTER:
+        return Twitter;
+      case SocialLink.PERSONAL:
+        return Globe;
+      default:
+        return undefined;
+    }
+  })();
+
+  return (
+    <Input
+      IconLeft={SocialIcon}
+      type="url"
+      name={`social-${social}`}
+      placeholder={placeholder}
+    />
+  );
 };
 
 const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
@@ -144,7 +171,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
             ))}
 
             {post.questions.map((q) => (
-              <Question key={q.id} {...q} />
+              <Question key={q.id} {...q} id={`answerid-${q.id}`} />
             ))}
 
             <div className="grid w-full items-center gap-1.5">
@@ -170,10 +197,11 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
             </span>
 
             <Input
+              containerClassName="hidden"
               className="hidden"
               hidden
               value="false"
-              type="checkbox"
+              type="hidden"
               name="submit_true_for_fast_track_interview"
             />
           </div>
