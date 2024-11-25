@@ -7,15 +7,15 @@
 }
 
 .theme-toggle path:nth-child(1) {
-  @apply fill-inherit stroke-inherit;
+  @apply fill-inherit stroke-inherit transition-colors;
 }
 
 .theme-toggle path:nth-child(n + 2) {
-  @apply fill-amber-500 stroke-amber-500;
+  @apply fill-amber-500 stroke-amber-500 transition-colors;
 }
 
 :root[data-mode="dark"] .theme-toggle path:nth-child(1) {
-  @apply fill-blue-500 stroke-blue-500;
+  @apply fill-blue-300 stroke-blue-300;
 }
 
 :root[data-mode="dark"] .theme-toggle path:nth-child(n + 2) {

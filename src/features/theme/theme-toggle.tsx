@@ -1,6 +1,5 @@
 "use client";
 
-import CookieJS from "js-cookie";
 import { SunMoon } from "lucide-react";
 
 import { useTheme } from "./use-theme";
