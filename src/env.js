@@ -24,6 +24,10 @@ export const env = createEnv({
     ),
     NUDGE_API_KEY: z.string(),
     NUDGE_OTP_ID: z.number(),
+    AWS_REGION: z.string(),
+    AWS_ACCESS_KEY_ID: z.string(),
+    AWS_SECRET_ACCESS_KEY: z.string(),
+    S3_BUCKET: z.string(),
   },
 
   /**
@@ -46,6 +50,10 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NUDGE_API_KEY: process.env.NUDGE_API_KEY,
     NUDGE_OTP_ID: parseInt(process.env.NUDGE_OTP_ID ?? "0000", 10),
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    S3_BUCKET: process.env.S3_BUCKET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
