@@ -4,18 +4,17 @@ import { notFound, redirect } from "next/navigation";
 
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { Prisma } from "@prisma/client";
-import { create } from "domain";
 
+import { env } from "~/env";
 import { db } from "~/server/db";
+import { sendNudgeEmail } from "~/server/services/nudge";
 
 // TODO: setup env for this
 const client = new S3Client({
-  region: "us-west-2",
+  region: env.AWS_REGION,
   credentials: {
-    accessKeyId: "",
-    accountId: "",
-    secretAccessKey: "",
-    sessionToken: "",
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
@@ -78,16 +77,25 @@ export const submitJobApp = async (data: FormData) => {
   const resume = data.get("resume") as File;
   // handle uploading file and setting url
   if (resume) {
+    // 10MB limit
+    if (resume.size > 1024 * 1024 * 10) {
+      return redirect(`/roles/${slug}?failed=sizelimit`);
+    }
     const command = new PutObjectCommand({
       Body: Buffer.from(await resume.arrayBuffer()),
       ContentType: resume.type,
       ContentLength: resume.size,
-      Bucket: "",
+      Bucket: env.S3_BUCKET,
       Key: resume.name,
-      Tagging: "",
+      Tagging: `for=${jobId},name=${encodeURIComponent(name)}`,
     });
     const upload = await client.send(command);
-    application.resumeUrl = resume.name;
+    if ((upload.$metadata.httpStatusCode ?? 400) < 400) {
+      application.resumeUrl = resume.name;
+    } else {
+      console.log(upload);
+      return redirect(`/roles/${slug}?failed=upload`);
+    }
   } else {
     return redirect(`/roles/${slug}?failed=resume`);
   }
@@ -116,6 +124,17 @@ export const submitJobApp = async (data: FormData) => {
     const applicationSubmission = await db.jobApplication.create({
       data: application,
     });
+
+    if (applicationSubmission) {
+      // TODO: create nudge template for job app submission
+      // for both candidate and to notify interviewers/ hiring managers
+      await sendNudgeEmail({ name, email }, 1234, []);
+      await sendNudgeEmail(
+        { name: "Ibrahim Ali", email: "ibrahims@tilli.pro" },
+        5678,
+        [],
+      );
+    }
   } catch (e) {
     return redirect(`/roles/${slug}?failed=create`);
   }
