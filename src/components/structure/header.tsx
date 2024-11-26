@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 import { cva } from "class-variance-authority";
 import { Menu } from "lucide-react";
@@ -212,6 +213,23 @@ const Header: React.FC = async () => {
           </DrawerContent>
         </Drawer>
       </div>
+
+      <Script
+        id="header-scroll-effect"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const header = document.querySelector("header");
+              window.addEventListener("scroll", function() {
+                if (window.scrollY > header.offsetHeight)
+                  header.classList.add("bg-background/80", "backdrop-blur-md", "shadow-sm");
+                else header.classList.remove("bg-background/80", "backdrop-blur-md", "shadow-sm");
+              });
+            })();
+          `,
+        }}
+      />
     </header>
   );
 };
