@@ -1,5 +1,8 @@
 import {
+  Fauna_One,
+  Hubballi,
   Lora,
+  Moderustic,
   Noto_Sans,
   Outfit,
   Prompt,
@@ -23,8 +26,8 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const HeaderFont = Prompt({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+const HeaderFont = Moderustic({
+  weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin-ext"],
   variable: "--font-sans",
 });
@@ -54,7 +57,7 @@ export default async function RootLayout({
         className={`${HeaderFont.variable} ${BodyFont.variable}`}
         data-mode={theme}
       >
-        <body>
+        <body className="overflow-x-hidden">
           <Header />
           <TRPCReactProvider>
             <HydrateClient>{children}</HydrateClient>
