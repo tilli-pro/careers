@@ -1,20 +1,11 @@
-import {
-  Fauna_One,
-  Hubballi,
-  Lora,
-  Moderustic,
-  Noto_Sans,
-  Outfit,
-  Prompt,
-  Space_Grotesk,
-} from "next/font/google";
+import { Lora, Moderustic } from "next/font/google";
 import { cookies, headers } from "next/headers";
 
 import { type Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 
 import Header from "~/components/structure/header";
 import { ThemeProvider } from "~/features/theme/use-theme";
-import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 import "~/styles/header.css";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -51,19 +42,21 @@ export default async function RootLayout({
   const theme = themeCookie?.value ?? themeHeader ?? "light";
 
   return (
-    <ThemeProvider>
-      <html
-        lang="en"
-        className={`${HeaderFont.variable} ${BodyFont.variable}`}
-        data-mode={theme}
-      >
-        <body className="overflow-x-hidden">
-          <Header />
-          <TRPCReactProvider>
-            <HydrateClient>{children}</HydrateClient>
-          </TRPCReactProvider>
-        </body>
-      </html>
-    </ThemeProvider>
+    <ViewTransitions>
+      <ThemeProvider>
+        <html
+          lang="en"
+          className={`${HeaderFont.variable} ${BodyFont.variable}`}
+          data-mode={theme}
+        >
+          <body className="overflow-x-hidden">
+            <Header />
+            <TRPCReactProvider>
+              <HydrateClient>{children}</HydrateClient>
+            </TRPCReactProvider>
+          </body>
+        </html>
+      </ThemeProvider>
+    </ViewTransitions>
   );
 }

@@ -1,28 +1,11 @@
 import React from "react";
 
-import Link from "next/link";
-
 import { ArrowRight } from "lucide-react";
+import { Link } from "next-view-transitions";
 
-import { api } from "~/trpc/server";
+import { fmtCurrency, queryParam } from "~/lib/utils";
 
-type JobPostingSchema = Awaited<ReturnType<typeof api.post.all>>[number];
-
-const fmtCurrency = new Intl.NumberFormat("en-us", {
-  style: "currency",
-  currency: "USD",
-  currencyDisplay: "symbol",
-  compactDisplay: "long",
-  notation: "compact",
-}).format;
-
-const queryParam = (key: string, value: string) => {
-  return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-};
-
-const queryParams = (params: [string, string][]) => {
-  return params.map(([key, value]) => queryParam(key, value)).join("&");
-};
+import type { JobPostingSchema } from "./types";
 
 const JobPostingListItem: React.FC<JobPostingSchema> = ({
   title,
@@ -31,7 +14,6 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
   location,
   salaryRange,
   slug,
-  hiringManager,
 }) => {
   const [start, end] = salaryRange;
 
@@ -59,7 +41,7 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
           <p>
             <Link
               className="hover:underline"
-              href={`roles?${queryParam("location", location.slug)}`}
+              href={`/roles?${queryParam("location", location.slug)}`}
             >
               {location.location}
             </Link>
@@ -80,7 +62,7 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
       )}
       <Link
         href={`/roles/${slug}`}
-        className="role w-18 group col-auto ml-auto flex items-center self-stretch bg-transparent p-6 transition-colors duration-150 hover:bg-blue-500"
+        className="role w-18 group col-auto ml-auto flex items-center self-stretch rounded-r-[3px] bg-transparent p-6 transition-colors duration-150 hover:bg-blue-500"
       >
         <ArrowRight className="group-hover:text-white" />
       </Link>

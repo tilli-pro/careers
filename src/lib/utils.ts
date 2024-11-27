@@ -33,7 +33,7 @@ export const isJsonPath = <T extends object>(
   maybePath: string,
   object: T,
 ): boolean => {
-  return maybePath.split(".").length > 0 && !(maybePath in object);
+  return maybePath.split(".").length > 0 && !(maybePath in (object ?? {}));
 };
 
 export const walkTree = <T extends object>(
@@ -41,7 +41,7 @@ export const walkTree = <T extends object>(
   object: T,
 ): unknown => {
   const split = (path as string).split(".");
-  const resolved: NestedObjects<T> = object[
+  const resolved: NestedObjects<T> = (object ?? {})[
     split.shift() as keyof T
   ] as NestedObjects<T>;
 
@@ -75,3 +75,19 @@ export function groupBy<T extends object>(
     return acc;
   }, aggregate);
 }
+
+export const queryParam = (key: string, value: string) => {
+  return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+};
+
+export const queryParams = (params: [string, string][]) => {
+  return params.map(([key, value]) => queryParam(key, value)).join("&");
+};
+
+export const fmtCurrency = new Intl.NumberFormat("en-us", {
+  style: "currency",
+  currency: "USD",
+  currencyDisplay: "symbol",
+  compactDisplay: "long",
+  notation: "compact",
+}).format;

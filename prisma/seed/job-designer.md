@@ -1,5 +1,3 @@
-# Product Designer
-
 ## Job Summary
 We are looking for a creative and detail-oriented Product Designer to join our team. As a Product Designer, you will play a key role in defining the user experience and visual design of our products. You will work closely with product managers, engineers, and other designers to build intuitive, accessible, and aesthetically pleasing interfaces that enhance the user experience.
 

@@ -1,5 +1,3 @@
-# Job Title: DevOps Engineer (AWS Cloud Specialist)
-
 ## Job Overview
 We are seeking a skilled **DevOps Engineer** with a strong background in **AWS cloud technologies** to join our dynamic team. The ideal candidate will be responsible for designing, implementing, and maintaining cloud infrastructure on AWS, ensuring seamless deployment and high availability of applications. You will collaborate closely with development and operations teams to automate and streamline our development processes, enhance CI/CD workflows, and ensure the scalability and security of our cloud environment.
 

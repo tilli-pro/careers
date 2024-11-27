@@ -2,11 +2,11 @@ import React, { forwardRef } from "react";
 
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
 import Script from "next/script";
 
 import { cva } from "class-variance-authority";
 import { Menu } from "lucide-react";
+import { Link } from "next-view-transitions";
 
 import { Button } from "~/components/ui/button";
 import {

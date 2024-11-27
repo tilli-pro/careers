@@ -1,9 +1,6 @@
 import BasePage from "~/components/structure/base-page";
-import { ComboboxSSR } from "~/components/ui/combobox.server";
 import GradientFC from "~/features/gradient/gradient-fc";
 import { JobPostingList } from "~/features/job-posting";
-import { groupBy } from "~/lib/utils";
-import { api } from "~/trpc/server";
 
 interface PageProps {
   searchParams: Promise<{
@@ -13,10 +10,6 @@ interface PageProps {
 }
 const Page: React.FC<PageProps> = async ({ searchParams, ...rest }) => {
   const search = await searchParams;
-
-  const posts = await api.post.all(search);
-  const departments = groupBy(posts, ["department.name", "department.slug"]);
-  const locations = groupBy(posts, ["location.location", "location.slug"]);
 
   return (
     <BasePage className="overflow-hidden">
@@ -34,25 +27,12 @@ const Page: React.FC<PageProps> = async ({ searchParams, ...rest }) => {
       />
       <div className="absolute -left-[50vw] top-[30vh] -z-0 h-[100vh] w-[200vw] -rotate-6 bg-background md:top-[300px]" />
       <div className="h-[30vh] md:h-[300px]" />
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="z-10 flex flex-row items-center justify-center gap-4 rounded-full p-1 drop-shadow md:col-start-2 md:justify-end">
-          <ComboboxSSR
-            values={Object.entries(departments).map(([department, roles]) => ({
-              value: department.split(";;;")[1] ?? "",
-              label: `${department.split(";;;")[0] ?? ""} (${roles.length})`,
-            }))}
-            placeholder="Department"
-          />
-          <ComboboxSSR
-            values={Object.entries(locations).map(([location, roles]) => ({
-              value: location.split(";;;")[1] ?? "",
-              label: `${location.split(";;;")[0] ?? ""} (${roles.length})`,
-            }))}
-            placeholder="Location"
-          />
-        </div>
-      </div>
-      <JobPostingList input={search} />
+
+      <JobPostingList
+        showFilters
+        filterClassName="justify-center md:justify-end z-10"
+        input={search}
+      />
     </BasePage>
   );
 };

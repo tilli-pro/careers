@@ -1,12 +1,23 @@
+import React from "react";
+
 import Form from "next/form";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import * as runtime from "react/jsx-runtime";
+import { faker } from "@faker-js/faker";
+import {
+  SiDevdotto,
+  SiDribbble,
+  SiGithub,
+  SiLinkedin,
+  SiMedium,
+  SiX,
+} from "@icons-pack/react-simple-icons";
 import { compile, run } from "@mdx-js/mdx";
 import { SocialLink } from "@prisma/client";
+import { Globe } from "lucide-react";
 import { Check } from "lucide-react";
-import { Dribbble, Github, Globe, Linkedin, Twitter } from "lucide-react";
+import { Link } from "next-view-transitions";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -14,7 +25,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
 import { submitJobApp } from "~/features/job-posting/submit";
-import { cn } from "~/lib/utils";
+import { cn, fmtCurrency, queryParam } from "~/lib/utils";
 import "~/styles/role.css";
 import { api } from "~/trpc/server";
 
@@ -23,30 +34,39 @@ interface PageProps {
   searchParams: Promise<{ submitted?: boolean }>;
 }
 
-const defaultQuestions = [
-  {
-    id: "name",
-    question: "Name",
-    placeholder: "Jane Sumerack",
-    required: true,
-  },
-  {
-    id: "email",
-    question: "Email",
-    type: "email",
-    placeholder: "j.sumerack@email.com",
-    required: true,
-  },
-  {
-    id: "about-tilli",
-    question: "How did you learn about Tilli?",
-    placeholder: "Write here...",
-    required: false,
-    longForm: true,
-  },
-];
+const defaultQuestions = () => {
+  const placeholderFirstName = faker.person.firstName();
+  const placeholderLastName = faker.person.lastName();
+  const placeholderEmail = faker.internet.email({
+    firstName: placeholderFirstName,
+    lastName: placeholderLastName,
+  });
 
-const Question: React.FC<(typeof defaultQuestions)[number]> = ({
+  return [
+    {
+      id: "name",
+      question: "Name",
+      placeholder: `${placeholderFirstName} ${placeholderLastName}`,
+      required: true,
+    },
+    {
+      id: "email",
+      question: "Email",
+      type: "email",
+      placeholder: placeholderEmail,
+      required: true,
+    },
+    {
+      id: "about-tilli",
+      question: "How did you learn about Tilli?",
+      placeholder: "Write here...",
+      required: false,
+      longForm: true,
+    },
+  ];
+};
+
+const Question: React.FC<ReturnType<typeof defaultQuestions>[number]> = ({
   question,
   id,
   placeholder,
@@ -77,26 +97,30 @@ const Question: React.FC<(typeof defaultQuestions)[number]> = ({
 const Social: React.FC<{ social: SocialLink }> = ({ social }) => {
   const placeholder = social.slice(0, 1) + social.slice(1).toLocaleLowerCase();
 
-  const SocialIcon = (() => {
+  const SocialIconBase = (() => {
     switch (social) {
       case SocialLink.GITHUB:
-        return Github;
+        return SiGithub;
       case SocialLink.DRIBBBLE:
-        return Dribbble;
+        return SiDribbble;
       case SocialLink.LINKEDIN:
-        return Linkedin;
+        return SiLinkedin;
       case SocialLink.TWITTER:
-        return Twitter;
+        return SiX;
       case SocialLink.PERSONAL:
         return Globe;
+      case SocialLink.DEVTO:
+        return SiDevdotto;
+      case SocialLink.MEDIUM:
+        return SiMedium;
       default:
-        return undefined;
+        return Globe;
     }
   })();
 
   return (
     <Input
-      IconLeft={SocialIcon}
+      IconLeft={SocialIconBase}
       type="url"
       name={`social-${social}`}
       placeholder={placeholder}
@@ -121,6 +145,8 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
     baseUrl: import.meta.url,
   });
 
+  const [start, end] = post.salaryRange;
+
   return (
     <div className="relative mb-12 grid grid-cols-3 items-start gap-4 md:grid-rows-1">
       <article className="relative col-span-3 md:col-span-2">
@@ -136,6 +162,29 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
             {submissionSuccessful ? "Submitted!" : "Apply Now"}
           </Button>
         </Link>
+        <h1>{post.title}</h1>
+        <div className="flex flex-row gap-2">
+          <p>
+            <Link
+              className="hover:underline"
+              href={`/roles?${queryParam("department", post.department.slug)}`}
+            >
+              {post.department.name}
+            </Link>
+          </p>
+          <span>•</span>
+          <p>
+            <Link
+              className="hover:underline"
+              href={`roles?${queryParam("location", post.location.slug)}`}
+            >
+              {post.location.location}
+            </Link>
+          </p>
+        </div>
+        <p className="text-xs font-medium opacity-50">
+          {fmtCurrency(start ?? NaN)} - {fmtCurrency(end ?? NaN)}
+        </p>
         <MDXContent />
       </article>
 
@@ -166,7 +215,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
             <Input type="hidden" name="post_id" hidden value={post.id} />
             <Input type="hidden" name="post_slug" hidden value={post.slug} />
 
-            {defaultQuestions.map((q) => (
+            {defaultQuestions().map((q) => (
               <Question key={q.question} {...q} />
             ))}
 

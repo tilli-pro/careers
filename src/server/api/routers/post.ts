@@ -53,4 +53,18 @@ export const postRouter = createTRPCRouter({
         include: defaultInclude,
       });
     }),
+  allDepartments: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.department.findMany({
+      include: {
+        _count: true,
+      },
+    });
+  }),
+  allLocations: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.jobLocation.findMany({
+      include: {
+        _count: true,
+      },
+    });
+  }),
 });

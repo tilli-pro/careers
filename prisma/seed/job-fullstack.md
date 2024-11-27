@@ -1,5 +1,3 @@
-# Fullstack Engineer
-
 ## Job Summary
 We are seeking a skilled Fullstack Engineer to join our dynamic development team. In this role, you will be responsible for designing, developing, and maintaining both front-end and back-end systems. You will work closely with cross-functional teams to deliver scalable and robust applications that provide an excellent user experience.
 

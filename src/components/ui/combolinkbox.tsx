@@ -1,6 +1,8 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 
@@ -21,20 +23,19 @@ import {
 import { cn } from "~/lib/utils";
 
 export interface ComboBoxProps {
-  values: { label: string; value: string }[];
+  values: { label: string; value: string; to: string }[];
   defaultValue?: string;
   placeholder?: string;
-  onSelect?: (value: string) => void;
 }
 
-export const Combobox: React.FC<ComboBoxProps> = ({
+export const ComboLinkbox: React.FC<ComboBoxProps> = ({
   values,
   defaultValue,
   placeholder,
-  onSelect,
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(defaultValue ?? "");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(defaultValue ?? "");
+  const router = useRouter();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -64,7 +65,7 @@ export const Combobox: React.FC<ComboBoxProps> = ({
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    onSelect?.(currentValue === value ? "" : currentValue);
+                    router.push(v.to);
                   }}
                 >
                   {v.label}

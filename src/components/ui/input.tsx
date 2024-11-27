@@ -4,8 +4,8 @@ import { cn } from "~/lib/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  IconLeft?: React.FC;
-  IconRight?: React.FC;
+  IconLeft?: React.FC<{ className?: string }>;
+  IconRight?: React.FC<{ className?: string }>;
   containerClassName?: string;
 }
 
@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           containerClassName,
         )}
       >
-        {!!IconLeft && <IconLeft />}
+        {!!IconLeft && <IconLeft className="h-5 w-5" />}
         <input
           type={type}
           className={cn(
@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {!!IconRight && <IconRight />}
+        {!!IconRight && <IconRight className="h-5 w-5" />}
       </div>
     );
   },
