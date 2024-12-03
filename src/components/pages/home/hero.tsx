@@ -2,7 +2,7 @@ import Script from "next/script";
 
 import { ArrowRight } from "lucide-react";
 
-import MapSSR from "~/features/topo/map.ssr";
+import MapSSR from "~/components/pages/home/topo/topo-map.ssr";
 
 const Hero: React.FC = () => {
   return (
@@ -22,7 +22,10 @@ const Hero: React.FC = () => {
         }}
       />
 
-      <section className="relative box-border h-screen w-screen overflow-visible">
+      <section
+        id="careers-hero"
+        className="relative box-border max-h-screen w-screen overflow-visible"
+      >
         <div className="relative w-screen">
           <MapSSR className="object-fill" />
         </div>

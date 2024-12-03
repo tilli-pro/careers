@@ -4,7 +4,9 @@ import { useEffect } from "react";
 
 import { cn } from "~/lib/utils";
 
-import { useTheme } from "../theme";
+import { useTheme } from "../../../../features/theme";
+
+const defaultTransform = "rotateX(0) rotateZ(0) translate3d(0, 0, 0)";
 
 export interface MapProps {
   className?: string;
@@ -14,8 +16,7 @@ export interface MapProps {
   };
   themeOverride?: "dark" | "light";
 }
-// TODO: rename this to avoid conflict with JS native Map class
-const Map: React.FC<MapProps> = ({
+const TopoMap: React.FC<MapProps> = ({
   className,
   gradient = {
     dark: ["#DDDDDD", "#222222"],
@@ -31,25 +32,31 @@ const Map: React.FC<MapProps> = ({
         const island = document.getElementById("island");
         const scroll = window.scrollY;
 
+        const scrollSwap = 300;
         const maxScroll = Math.min(scroll, 300);
 
-        const rotX = `rotateX(${Math.min(scroll / 4, 65)}deg)`;
-        const rotZ = `rotateZ(${Math.max(Math.max(0, scroll - 80) * -0.2, -4)}deg)`;
-        const transY = `translateY(${maxScroll}px)`;
-        const transX = `translateX(${Math.min(scroll / 8, 18)}vw)`;
+        const rotX = `${Math.min(scroll / 6, 65).toFixed(4)}deg`;
+        const rotZ = `${Math.max(-scroll / 12, -15).toFixed(4)}deg`;
+        const transY = `${Math.min(1400, window.innerHeight * 4)}px`;
+        const transX = `-${Math.min(scroll / 12, 12).toFixed(4)}vw`;
 
-        const islandTransform = `${rotX} ${rotZ} ${transY} ${transX}`;
-        const islandOpacity = Math.min(scroll * 0.003, 1);
+        const islandTransform = `rotateX(${rotX}) rotateZ(${rotZ}) translate3d(${transX}, ${transY}, 0)`;
+        const islandOpacity = Math.min(scroll * 0.0015, 1).toFixed(3);
 
-        if (island) {
+        const borderHex = theme === "dark" ? "255" : "0";
+        if (island && scroll > scrollSwap) {
           island.style.transform = islandTransform;
-          const borderHex = theme === "dark" ? "255" : "0";
           island.style.border = `solid 4px rgba(${borderHex}, ${borderHex}, ${borderHex}, ${islandOpacity})`;
+        } else if (island) {
+          island.style.transform = defaultTransform;
+          island.style.border = `solid 4px rgba(${borderHex}, ${borderHex}, ${borderHex}, 0)`;
         }
 
         const mapBorder = document.getElementById("map-border");
-        if (mapBorder) {
+        if (mapBorder && scroll > scrollSwap) {
           mapBorder.style.transform = islandTransform;
+        } else if (mapBorder) {
+          mapBorder.style.transform = defaultTransform;
         }
 
         for (let i = 1; i <= 18; i++) {
@@ -57,7 +64,7 @@ const Map: React.FC<MapProps> = ({
           for (let j = 0; j < svgEls.length; j++) {
             const svgEl = document.getElementById(`layer${i}-${j + 1}`);
             if (svgEl) {
-              svgEl.style.transform = `translateY(calc(-${scroll * (Math.pow(i, 1.5) / 12)}px))`;
+              svgEl.style.transform = `translateY(${scroll * (i / 2) * (i / 18) * ((10 - i) / 15)}px)`;
             }
           }
         }
@@ -73,32 +80,32 @@ const Map: React.FC<MapProps> = ({
     <>
       <div
         id="map-border"
-        className="absolute bottom-0 left-0 right-0 top-0 will-change-transform"
-        style={{ transformStyle: "preserve-3d" }}
+        className="absolute bottom-0 left-0 right-0 top-0 transition-all duration-1000 will-change-auto"
+        style={{ transformStyle: "preserve-3d", transform: defaultTransform }}
       >
         <div
           id="map-top"
-          className="absolute left-0 right-0 top-0 h-80 bg-black opacity-25 dark:bg-white"
+          className="absolute left-0 right-0 top-0 h-80 bg-muted opacity-40 transition-all will-change-auto"
           style={{
-            transform: "rotateX(90deg)",
+            transform: "rotateX(-90deg)",
             transformStyle: "preserve-3d",
             transformOrigin: "50% 0",
           }}
         />
         <div
           id="map-bot"
-          className="absolute -bottom-80 left-0 right-0 h-80 bg-black opacity-25 dark:bg-white"
+          className="absolute -bottom-80 left-0 right-0 h-80 bg-muted opacity-80 transition-all will-change-auto"
           style={{
-            transform: "rotateX(90deg)",
+            transform: "rotateX(-90deg)",
             transformStyle: "preserve-3d",
             transformOrigin: "50% 0",
           }}
         />
         <div
           id="map-left"
-          className="absolute bottom-0 left-0 top-0 w-80 bg-black opacity-25 dark:bg-white"
+          className="absolute bottom-0 left-0 top-0 w-80 bg-muted opacity-60 transition-all will-change-auto"
           style={{
-            transform: "rotateY(-90deg)",
+            transform: "rotateY(90deg)",
             transformStyle: "preserve-3d",
             transformOrigin: "0 50%",
           }}
@@ -112,9 +119,9 @@ const Map: React.FC<MapProps> = ({
         preserveAspectRatio="xMidYMid meet"
         className={cn(
           className,
-          "box-border overflow-visible will-change-transform",
+          "isolate box-border overflow-visible transition-all duration-1000 will-change-auto",
         )}
-        style={{ transformStyle: "preserve-3d" }}
+        style={{ transformStyle: "preserve-3d", transform: defaultTransform }}
       >
         <defs>
           <linearGradient
@@ -658,4 +665,4 @@ const Map: React.FC<MapProps> = ({
   );
 };
 
-export default Map;
+export default TopoMap;

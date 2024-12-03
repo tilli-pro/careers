@@ -5,8 +5,7 @@ import Image from "next/image";
 import Script from "next/script";
 
 import { cva } from "class-variance-authority";
-import { X } from "lucide-react";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link } from "next-view-transitions";
 
 import { Button } from "~/components/ui/button";
@@ -109,12 +108,54 @@ const navigationMenuTriggerStyle = cva(
   "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
 );
 
+const ProductTab: React.FC = () => {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className="grid gap-3 p-4 md:w-[420px] lg:w-[540px] lg:grid-cols-[.75fr_1fr]">
+          <ListItem
+            href="/tilli"
+            liClassName="col-span-1 row-span-3"
+            className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/10 to-muted/50 p-6 no-underline outline-none focus:shadow-md"
+            noChildrenWrapper
+          >
+            <div className="z-10 mb-2 mt-4 text-4xl font-medium lowercase tracking-wider">
+              tilli
+            </div>
+            <p className="z-10 text-sm leading-tight text-muted-foreground">
+              Transform The Way You Do Business
+            </p>
+            <Image
+              src="/tilli-bg.jpg"
+              alt="Tilli Background"
+              height="1825"
+              width="1453"
+              className="absolute -top-1 left-0 z-0 h-full w-full rounded object-cover opacity-60 dark:[filter:invert(100%)]"
+            />
+          </ListItem>
+          {products.map(({ name, href, description }) => (
+            <ListItem
+              key={name}
+              href={href}
+              title={name}
+              titleClassName="font-serif font-black"
+            >
+              {description}
+            </ListItem>
+          ))}
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+};
+
 const Header: React.FC = async () => {
   const cookieStore = await cookies();
   const visited = cookieStore.get("__T_N_VISITOR");
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background bg-opacity-40">
+    <header className="sticky top-0 z-50 w-full bg-background bg-opacity-40 will-change-auto">
       <div className="mx-auto flex max-w-screen-lg items-center gap-4 p-3">
         <Link href="/">
           <Image
@@ -128,43 +169,7 @@ const Header: React.FC = async () => {
         <div className="hidden items-center justify-start gap-4 md:flex">
           <NavigationMenu aria-label="Career Navigation">
             <NavigationMenuList>
-              {/* <NavigationMenuItem>
-                <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid gap-3 p-4 md:w-[420px] lg:w-[540px] lg:grid-cols-[.75fr_1fr]">
-                    <ListItem
-                      href="/tilli"
-                      liClassName="col-span-1 row-span-3"
-                      className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/10 to-muted/50 p-6 no-underline outline-none focus:shadow-md"
-                      noChildrenWrapper
-                    >
-                      <div className="z-10 mb-2 mt-4 text-4xl font-medium lowercase tracking-wider">
-                        tilli
-                      </div>
-                      <p className="z-10 text-sm leading-tight text-muted-foreground">
-                        Transform The Way You Do Business
-                      </p>
-                      <Image
-                        src="/tilli-bg.jpg"
-                        alt="Tilli Background"
-                        height="1825"
-                        width="1453"
-                        className="absolute -top-1 left-0 z-0 h-full w-full rounded object-cover opacity-60 dark:[filter:invert(100%)]"
-                      />
-                    </ListItem>
-                    {products.map(({ name, href, description }) => (
-                      <ListItem
-                        key={name}
-                        href={href}
-                        title={name}
-                        titleClassName="font-serif font-black"
-                      >
-                        {description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem> */}
+              {/* <ProductTab /> */}
 
               <NavigationMenuItem>
                 <Link href="/roles" passHref legacyBehavior>
