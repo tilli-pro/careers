@@ -222,24 +222,16 @@ const Header: React.FC = async () => {
       </div>
 
       <Script
-        id="header-scroll-bg-blur-effect"
+        id="header-scroll-effect"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             (function() {
               const header = document.querySelector("header");
-              const maxScroll = header.offsetHeight;
-
               window.addEventListener("scroll", function() {
-                let opacity;
-                if (window.scrollY <= maxScroll)
-                  opacity = 1 - (window.scrollY / maxScroll) * 0.2; // gradual decrease (from 1 to 0.8)
-                else opacity = 0.8; // maintain min. opacity
-
-                /** blur bg */
-                header.style.backgroundColor = \`rgba(var(--tw-bg-opacity, 255, 255, 255), \${opacity})\`;
-                if (opacity < 1) header.classList.add("backdrop-blur-md", "shadow-sm");
-                else header.classList.remove("backdrop-blur-md", "shadow-sm");
+                if (window.scrollY > header.offsetHeight)
+                  header.classList.add("bg-background/80", "backdrop-blur-md", "shadow-sm");
+                else header.classList.remove("bg-background/80", "backdrop-blur-md", "shadow-sm");
               });
             })();
           `,
