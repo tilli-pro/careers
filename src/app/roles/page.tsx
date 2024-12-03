@@ -8,7 +8,7 @@ interface PageProps {
     location?: string;
   }>;
 }
-const Page: React.FC<PageProps> = async ({ searchParams, ...rest }) => {
+const Page: React.FC<PageProps> = async ({ searchParams }) => {
   const search = await searchParams;
 
   return (
@@ -21,12 +21,15 @@ const Page: React.FC<PageProps> = async ({ searchParams, ...rest }) => {
           We're hiring.
         </div>
       </div>
+
       <GradientFC
         id="RECRUIT_TIME"
         className="absolute left-0 top-12 h-[50vh] w-screen overflow-hidden md:h-[800px]"
       />
       <div className="absolute -left-[50vw] top-[30vh] -z-0 h-[100vh] w-[200vw] -rotate-6 bg-background md:top-[300px]" />
       <div className="h-[30vh] md:h-[300px]" />
+
+      {/* <div className="absolute left-0 top-0 w-screen overflow-hidden"></div> */}
 
       <JobPostingList
         showFilters

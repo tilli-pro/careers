@@ -1,10 +1,10 @@
-import { Lora, Moderustic } from "next/font/google";
-import { cookies, headers } from "next/headers";
+import { Figtree, Lora } from "next/font/google";
 
 import { type Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 
 import Header from "~/components/structure/header";
+import { getServerTheme } from "~/features/theme/server-theme";
 import { ThemeProvider } from "~/features/theme/use-theme";
 import "~/styles/globals.css";
 import "~/styles/header.css";
@@ -17,29 +17,23 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const HeaderFont = Moderustic({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin-ext"],
-  variable: "--font-sans",
-});
-
-const BodyFont = Lora({
+const BodyFont = Figtree({
   weight: "variable",
   subsets: ["latin-ext"],
-  variable: "--font-serif",
+  variable: "--font-body",
+  display: "swap",
+});
+
+const HeaderFont = Lora({
+  weight: "variable",
+  subsets: ["latin-ext"],
+  variable: "--font-header",
 });
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [cookieStore, headerStore] = await Promise.all([cookies(), headers()]);
-
-  const [themeCookie, themeHeader] = await Promise.all([
-    cookieStore.get("__next_theme"),
-    headerStore.get("Sec-CH-Prefers-Color-Scheme"),
-  ]);
-
-  const theme = themeCookie?.value ?? themeHeader ?? "light";
+  const theme = await getServerTheme();
 
   return (
     <ViewTransitions>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Script from "next/script";
 
 import { cva } from "class-variance-authority";
+import { X } from "lucide-react";
 import { Menu } from "lucide-react";
 import { Link } from "next-view-transitions";
 
@@ -29,14 +30,6 @@ import {
 } from "~/components/ui/navigation-menu";
 import { ThemeToggleSSR } from "~/features/theme";
 import { cn } from "~/lib/utils";
-
-// import { toggleColorScheme as server_toggleColorScheme } from "~/server/actions/color-scheme";
-
-// async function toggleColorScheme() {
-//   await server_toggleColorScheme();
-//   document.documentElement.dataset.mode =
-//     document.documentElement.dataset.mode === "light" ? "dark" : "light";
-// }
 
 const ListItem = forwardRef<
   React.ElementRef<"a">,
@@ -102,14 +95,13 @@ const products = [
   },
   {
     name: "🌎 Monay GPS",
-    href: "bg-blue-400/10",
+    href: "/product/monay",
     description: "The payment stack of the future. Today.",
   },
   {
     name: "🪄 tilliX",
     href: "/product/tillix",
-    description:
-      "How much wood could a wood chuck chuck if a wood chuck could chuck wood?",
+    description: "Consumer experience so good, it feels like magic.",
   },
 ];
 
@@ -123,7 +115,7 @@ const Header: React.FC = async () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background bg-opacity-40">
-      <div className="mx-auto flex max-w-screen-lg items-center gap-4 rounded-b border-b border-zinc-300 p-3 dark:border-zinc-900">
+      <div className="mx-auto flex max-w-screen-lg items-center gap-4 p-3">
         <Link href="/">
           <Image
             src="/tilli-icon.png"
@@ -136,7 +128,7 @@ const Header: React.FC = async () => {
         <div className="hidden items-center justify-start gap-4 md:flex">
           <NavigationMenu aria-label="Career Navigation">
             <NavigationMenuList>
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-4 md:w-[420px] lg:w-[540px] lg:grid-cols-[.75fr_1fr]">
@@ -172,10 +164,10 @@ const Header: React.FC = async () => {
                     ))}
                   </ul>
                 </NavigationMenuContent>
-              </NavigationMenuItem>
+              </NavigationMenuItem> */}
 
               <NavigationMenuItem>
-                <Link href="/roles" legacyBehavior passHref>
+                <Link href="/roles" passHref legacyBehavior>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Open Roles
                   </NavigationMenuLink>
@@ -203,13 +195,28 @@ const Header: React.FC = async () => {
             </Button>
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle className="text-2xl">tilli Careers</DrawerTitle>
-              <DrawerDescription>
-                Let's build something together.
-              </DrawerDescription>
+            <DrawerHeader className="relative">
+              <DrawerClose className="absolute -top-2 right-2">
+                <Button variant="outline" className="h-10 w-10 rounded-full">
+                  <X />
+                </Button>
+              </DrawerClose>
+              <div className="flex flex-row items-center">
+                <div className="flex flex-col items-start">
+                  <DrawerTitle className="text-left text-2xl">
+                    tilli Careers
+                  </DrawerTitle>
+                  <DrawerDescription>
+                    Let's build something together.
+                  </DrawerDescription>
+                </div>
+              </div>
             </DrawerHeader>
-            <div className="h-[calc(100vh-max(200px,20vh))]"></div>
+            <div className="flex h-[calc(100vh-max(200px,20vh))] w-full flex-col items-center justify-start">
+              <DrawerFooter className="w-full text-right text-sm text-primary/50">
+                © {new Date().getFullYear()} tilli. All Rights Reserved.
+              </DrawerFooter>
+            </div>
           </DrawerContent>
         </Drawer>
       </div>

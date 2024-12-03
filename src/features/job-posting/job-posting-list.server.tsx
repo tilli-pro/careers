@@ -1,4 +1,4 @@
-import { cn, groupBy } from "~/lib/utils";
+import { cn, multiGroupBy } from "~/lib/utils";
 import { api } from "~/trpc/server";
 
 import JobPostingFilter from "./job-posting-filter";
@@ -17,8 +17,10 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
   filterClassName,
 }) => {
   const posts = await api.post.all(input);
-  const departments = groupBy(posts, ["department.name", "department.slug"]);
-  const locations = groupBy(posts, ["location.location", "location.slug"]);
+  const { departments, locations } = multiGroupBy(posts, {
+    departments: ["department.name", "department.slug"],
+    locations: ["location.location", "location.slug"],
+  });
 
   return (
     <JobPostingListDataProvider

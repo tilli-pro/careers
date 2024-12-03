@@ -19,9 +19,9 @@ article hr {
 }
 
 article {
-  @apply relative mt-4 rounded border border-border drop-shadow p-4;
+  @apply relative mt-4 rounded border border-border p-4;
 }
 
 aside {
-  @apply border border-border drop-shadow;
+  @apply border border-border;
 }

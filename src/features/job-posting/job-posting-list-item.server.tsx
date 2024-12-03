@@ -1,7 +1,9 @@
 import React from "react";
 
+// import { Link } from "next-view-transitions";
+import Link from "next/link";
+
 import { ArrowRight } from "lucide-react";
-import { Link } from "next-view-transitions";
 
 import { fmtCurrency, queryParam } from "~/lib/utils";
 
@@ -25,7 +27,7 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
     .join(" ");
 
   return (
-    <section className="box-border grid grid-flow-col grid-rows-1 items-center gap-4 rounded border border-border drop-shadow transition-colors duration-150 has-[a.role:hover]:border-blue-400 md:grid-cols-3">
+    <section className="box-border grid grid-flow-col grid-rows-1 items-center gap-4 rounded border border-border bg-background/80 backdrop-blur transition-colors duration-150 has-[a.role:hover]:border-blue-400 md:grid-cols-3">
       <div className="flex flex-col gap-1 p-4">
         <h2 className="whitespace-nowrap">{title}</h2>
         <div className="flex flex-row gap-2">

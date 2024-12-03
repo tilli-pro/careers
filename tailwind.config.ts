@@ -1,5 +1,8 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+// @ts-expect-error - no .d.ts
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+import { type PluginAPI } from "tailwindcss/types/config";
 
 export default {
   darkMode: ["selector", '[data-mode="dark"]'],
@@ -7,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        serif: ["var(--font-serif)", ...fontFamily.serif],
+        sans: ["var(--font-body)", ...fontFamily.sans],
+        serif: ["var(--font-header)", ...fontFamily.serif],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -95,13 +98,63 @@ export default {
             outline: "solid 1px hsl(var(--secondary))",
           },
         },
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
+        meteor: {
+          "0%": {
+            transform: "rotate(215deg) translateX(0)",
+            opacity: "1",
+          },
+          "70%": {
+            opacity: "1",
+          },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: "0",
+          },
+        },
+        "background-position-spin": {
+          "0%": {
+            backgroundPosition: "top center",
+          },
+          "100%": {
+            backgroundPosition: "bottom center",
+          },
+        },
+        gradient: {
+          to: {
+            backgroundPosition: "var(--bg-size) 0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-once": "pulse-once 1.2s 2 ease-in",
+        aurora: "aurora 60s linear infinite",
+        meteor: "meteor 5s linear infinite",
+        "background-position-spin":
+          "background-position-spin 3000ms infinite alternate",
+        gradient: "gradient 8s linear infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: PluginAPI) {
+  const allColors = flattenColorPalette(theme("colors"));
+  const newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+  ) as Record<`--${string}`, string>;
+
+  addBase({
+    ":root": newVars,
+  });
+}

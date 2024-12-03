@@ -33,6 +33,7 @@ export const isJsonPath = <T extends object>(
   maybePath: string,
   object: T,
 ): boolean => {
+  // TODO: checking for the path existing in the object should happen during
   return maybePath.split(".").length > 0 && !(maybePath in (object ?? {}));
 };
 
@@ -52,25 +53,73 @@ export const walkTree = <T extends object>(
   }
 };
 
+const convertGroupKeyToDef = <T extends object>(
+  groupKey: JSONPath<T> | Array<JSONPath<T>>,
+  baseValue: T,
+) =>
+  (Array.isArray(groupKey) ? groupKey : [groupKey]).map((key) => ({
+    key,
+    isJsonPath: isJsonPath(key, baseValue),
+  }));
+
 export function groupBy<T extends object>(
-  array: T[],
+  values: T[],
   groupKey: JSONPath<T> | Array<JSONPath<T>>,
   keyDelimiter = ";;;",
 ): Record<string, T[]> {
-  const groupDefinition = (Array.isArray(groupKey) ? groupKey : [groupKey]).map(
-    (key) => ({ key, isJsonPath: isJsonPath(key, array[0]!) }),
-  );
+  const groupDefinition = convertGroupKeyToDef<T>(groupKey, values[0]!);
   const aggregate: Record<string, T[]> = {};
 
-  return array.reduce((acc, curr) => {
+  return values.reduce((acc, curr) => {
     const values = groupDefinition.map(({ key, isJsonPath }) =>
-      isJsonPath ? walkTree(key as any, curr) : curr[key as keyof T],
+      isJsonPath ? walkTree<T>(key as JSONPath<T>, curr) : curr[key as keyof T],
     );
     const key = values.join(keyDelimiter);
     if (!acc[key]) {
       acc[key] = [curr];
     } else {
       acc[key].push(curr);
+    }
+    return acc;
+  }, aggregate);
+}
+
+// more efficiently manage grouping based on multiple disparate criteria
+export function multiGroupBy<T extends object, U extends string>(
+  values: T[],
+  groupKeys: Record<U, JSONPath<T> | Array<JSONPath<T>>>,
+  keyDelimiter = ";;;",
+): Record<U, Record<string, T[]>> {
+  const groupDefinition = Object.fromEntries(
+    Object.entries(groupKeys).map(([group, key]) => [
+      group as U,
+      convertGroupKeyToDef<T>(
+        key as JSONPath<T> | Array<JSONPath<T>>,
+        values[0]!,
+      ),
+    ]),
+  ) as Record<U, Array<{ key: JSONPath<T>; isJsonPath: boolean }>>;
+
+  const aggregate = Object.fromEntries(
+    Object.keys(groupDefinition).map((group) => [group, {}]),
+  ) as Record<U, Record<string, T[]>>;
+
+  return values.reduce((acc, curr) => {
+    for (const [group, record] of Object.entries(acc) as [
+      U,
+      Record<string, T[]>,
+    ][]) {
+      const keys = groupDefinition[group as keyof typeof groupDefinition];
+      const value = keys
+        .map(({ key, isJsonPath }) => {
+          return isJsonPath ? walkTree<T>(key, curr) : curr[key as keyof T];
+        })
+        .join(keyDelimiter);
+      if (!record[value]) {
+        record[value] = [curr];
+      } else {
+        record[value].push(curr);
+      }
     }
     return acc;
   }, aggregate);

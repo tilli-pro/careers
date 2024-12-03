@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { api } from "~/trpc/react";
 
@@ -84,7 +84,20 @@ export const JobPostingListDataProvider: React.FC<
     }));
   };
 
-  console.log(filters);
+  if (typeof window !== "undefined") {
+    useEffect(() => {
+      const observer = new MutationObserver(function (mutations) {
+        console.log(document.location.href);
+      });
+
+      const config = {
+        childList: true,
+        subtree: true,
+      };
+
+      observer.observe(document.documentElement, config);
+    }, [window.location.href]);
+  }
 
   return (
     <JobPostingLinkContext.Provider value={{ filters, onFilterChange, posts }}>
