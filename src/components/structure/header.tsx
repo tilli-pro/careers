@@ -228,16 +228,19 @@ const Header: React.FC = async () => {
           __html: `
             (function() {
               const header = document.querySelector("header");
-              const maxScroll = header.offsetHeight;
+              const startScroll = header.offsetHeight;
+              const endScroll = header.offsetHeight * 2;
 
               window.addEventListener("scroll", function() {
                 let opacity;
-                if (window.scrollY <= maxScroll)
-                  opacity = 1 - (window.scrollY / maxScroll) * 0.2; // gradual decrease (from 1 to 0.8)
-                else opacity = 0.8; // maintain min. opacity
+                if (window.scrollY < startScroll) opacity = 1;
+                else if (window.scrollY <= endScroll) {
+                  const progress = (window.scrollY - startScroll) / (endScroll - startScroll);
+                  opacity = 1 - progress * 0.2; // gradual decrease (from 1 to 0.8)
+                } else opacity = 0.8; // min. opacity
 
                 /** blur bg */
-                header.style.backgroundColor = \`rgba(var(--tw-bg-opacity, 255, 255, 255), \${opacity})\`;
+                header.style.backgroundColor = \`hsl(var(--background) / \${opacity})\`;
                 if (opacity < 1) header.classList.add("backdrop-blur-md", "shadow-sm");
                 else header.classList.remove("backdrop-blur-md", "shadow-sm");
               });
