@@ -2,6 +2,7 @@ import Benefits from "~/components/pages/home/benefits";
 import Hero from "~/components/pages/home/hero";
 import "~/components/pages/home/topo/map.css";
 import BasePage from "~/components/structure/base-page";
+import { VelocityScroll } from "~/components/ui/scroll-based-velocity";
 import { JobPostingList } from "~/features/job-posting";
 
 export default async function Home() {
@@ -13,7 +14,7 @@ export default async function Home() {
         as="section"
         className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center md:min-h-screen"
       >
-        <div className="rounded-xl p-4 backdrop-blur-lg">
+        <div className="rounded-t-xl p-4 backdrop-blur-lg">
           <div className="flex flex-col items-center justify-center md:flex-row">
             <h2 className="w-full border-r-2 border-primary p-8 text-right text-6xl md:w-2/5">
               tilli
@@ -40,8 +41,26 @@ export default async function Home() {
             </p>
           </div>
         </div>
-        <div className="w-full flex-col md:flex-row">
-          VALUES GO HERE ONCE I FIGURE OUT A FORMAT I LIKE
+        <div className="flex w-full bg-primary py-2 font-mono text-2xl font-bold text-secondary shadow-md">
+          <VelocityScroll
+            text={
+              <>
+                <span className="text-amber-400 dark:text-amber-500">Love</span>{" "}
+                the craft.{" "}
+                <span className="text-amber-400 dark:text-amber-500">
+                  Empower
+                </span>{" "}
+                everyone.{" "}
+                <span className="text-amber-400 dark:text-amber-500">
+                  Trust
+                </span>{" "}
+                the process.{" "}
+                <span className="text-amber-400 dark:text-amber-500">Grow</span>{" "}
+                as you go.
+              </>
+            }
+            default_velocity={2}
+          />
         </div>
       </BasePage>
 
@@ -49,7 +68,18 @@ export default async function Home() {
 
       <BasePage as="section" className="py-16">
         {/* <Stack /> */}
-        <h2>Open Roles at Tilli</h2>
+        <h2 className="relative z-10 text-4xl">Open Roles at Tilli</h2>
+        <p className="p-1">
+          Don't see a match? Drop us a line at{" "}
+          <a
+            className="text-blue-500 transition-all hover:text-cyan-500"
+            href="mailto:careers@tilli.pro"
+            target="_blank"
+          >
+            careers@tilli.pro
+          </a>{" "}
+          and we'll stay in touch.
+        </p>
         <div id="roles">
           <JobPostingList />
         </div>

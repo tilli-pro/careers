@@ -50,7 +50,7 @@ const BenefitCard: React.FC<BenefitCardProps> = ({
     <div
       className={cn(
         "box-border rounded-lg bg-background p-6 shadow-lg dark:border-2 dark:border-muted",
-        description ? "h-80 md:h-60" : "h-44 md:h-32",
+        description ? "h-60" : "h-32",
       )}
     >
       <div
