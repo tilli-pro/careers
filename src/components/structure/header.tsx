@@ -2,23 +2,10 @@ import React, { forwardRef } from "react";
 
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Script from "next/script";
 
 import { cva } from "class-variance-authority";
-import { Menu, X } from "lucide-react";
 import { Link } from "next-view-transitions";
 
-import { Button } from "~/components/ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "~/components/ui/drawer";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -29,6 +16,8 @@ import {
 } from "~/components/ui/navigation-menu";
 import { ThemeToggleSSR } from "~/features/theme";
 import { cn } from "~/lib/utils";
+
+import MobileDrawer from "./mobile-drawer";
 
 const ListItem = forwardRef<
   React.ElementRef<"a">,
@@ -155,105 +144,45 @@ const Header: React.FC = async () => {
   const visited = cookieStore.get("__T_N_VISITOR");
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background bg-opacity-40 will-change-auto">
-      <div className="mx-auto flex max-w-screen-lg items-center gap-4 p-3">
-        <Link href="/">
-          <Image
-            src="/tilli-icon.png"
-            alt="Tilli Icon"
-            width={40}
-            height={40}
-            className="pointer-events-none h-8 w-8"
-          />
-        </Link>
-        <div className="hidden items-center justify-start gap-4 md:flex">
-          <NavigationMenu aria-label="Career Navigation">
-            <NavigationMenuList>
-              {/* <ProductTab /> */}
+    <>
+      <header className="sticky top-0 z-50 w-full will-change-auto">
+        <div className="header-blur pointer-events-none absolute inset-0 h-[200%] w-full bg-gradient-to-t from-background/0 to-background/90 backdrop-blur-lg" />
+        <div className="relative z-10 mx-auto flex max-w-screen-lg items-center gap-4 p-3">
+          <Link href="/">
+            <Image
+              src="/tilli-icon.png"
+              alt="Tilli Icon"
+              width={40}
+              height={40}
+              className="pointer-events-none h-8 w-8"
+            />
+          </Link>
+          <div className="hidden items-center justify-start gap-4 md:flex">
+            <NavigationMenu aria-label="Career Navigation">
+              <NavigationMenuList>
+                {/* <ProductTab /> */}
 
-              <NavigationMenuItem>
-                <Link href="/roles" passHref legacyBehavior>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Open Roles
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                <NavigationMenuItem>
+                  <Link href="/roles" passHref legacyBehavior>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Open Roles
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          <div className="ml-auto" />
+          <ThemeToggleSSR />
         </div>
-
-        <div className="ml-auto" />
-        <ThemeToggleSSR />
-      </div>
+      </header>
       <div className="md:hidden">
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button
-              tabIndex={0}
-              className={cn(
-                "fixed bottom-4 right-4",
-                !visited && "animate-pulse-once",
-              )}
-              variant="outline"
-            >
-              <Menu />
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader className="relative">
-              <DrawerClose className="absolute -top-2 right-2">
-                <Button variant="outline" className="h-10 w-10 rounded-full">
-                  <X />
-                </Button>
-              </DrawerClose>
-              <div className="flex flex-row items-center">
-                <div className="flex flex-col items-start">
-                  <DrawerTitle className="text-left text-2xl">
-                    tilli Careers
-                  </DrawerTitle>
-                  <DrawerDescription>
-                    Let's build something together.
-                  </DrawerDescription>
-                </div>
-              </div>
-            </DrawerHeader>
-            <div className="flex h-[calc(100vh-max(200px,20vh))] w-full flex-col items-center justify-start">
-              <DrawerFooter className="w-full text-right text-sm text-primary/50">
-                © {new Date().getFullYear()} tilli. All Rights Reserved.
-              </DrawerFooter>
-            </div>
-          </DrawerContent>
-        </Drawer>
+        <MobileDrawer visited={!!visited?.value} />
       </div>
-
-      <Script
-        id="header-scroll-bg-blur-effect"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              const header = document.querySelector("header");
-              const startScroll = header.offsetHeight;
-              const endScroll = header.offsetHeight * 2;
-
-              window.addEventListener("scroll", function() {
-                let opacity;
-                if (window.scrollY < startScroll) opacity = 1;
-                else if (window.scrollY <= endScroll) {
-                  const progress = (window.scrollY - startScroll) / (endScroll - startScroll);
-                  opacity = 1 - progress * 0.2; // gradual decrease (from 1 to 0.8)
-                } else opacity = 0.8; // min. opacity
-
-                /** blur bg */
-                header.style.backgroundColor = \`hsl(var(--background) / \${opacity})\`;
-                if (opacity < 1) header.classList.add("backdrop-blur-md", "shadow-sm");
-                else header.classList.remove("backdrop-blur-md", "shadow-sm");
-              });
-            })();
-          `,
-        }}
-      />
-    </header>
+    </>
   );
 };
 
