@@ -15,6 +15,7 @@ export interface MapProps {
     light: [string, string];
   };
   themeOverride?: "dark" | "light";
+  animateOnId?: string;
 }
 const TopoMap: React.FC<MapProps> = ({
   className,
@@ -23,16 +24,24 @@ const TopoMap: React.FC<MapProps> = ({
     light: ["#222222", "#DDDDDD"],
   },
   themeOverride,
+  animateOnId
 }) => {
   const { theme } = useTheme();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      let scrollSwap = 300;
+      if(animateOnId) {
+        const el = document.getElementById(animateOnId);
+        if(el) {
+          const rect = el.getBoundingClientRect();
+          scrollSwap = (rect.top / 2) + window.scrollY;
+        }
+      }
       const scrollListener = () => {
         const island = document.getElementById("island");
         const scroll = window.scrollY;
 
-        const scrollSwap = 300;
         // const maxScroll = Math.min(scroll, 300);
 
         const rotX = `${Math.min(scroll / 6, 65).toFixed(4)}deg`;

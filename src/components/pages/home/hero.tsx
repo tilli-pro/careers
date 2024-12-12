@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
         className="relative box-border max-h-screen w-screen overflow-visible"
       >
         <div className="relative w-screen">
-          <MapSSR className="object-fill" />
+          <MapSSR animateOnId="tilli-about" className="object-fill" />
         </div>
         <div className="absolute left-0 top-0 grid h-full max-h-screen w-full grid-cols-3 grid-rows-4 md:grid-rows-3">
           <div className="col-span-2 row-start-2 flex flex-col items-end justify-center self-center text-right md:col-span-1">

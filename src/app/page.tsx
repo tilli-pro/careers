@@ -19,7 +19,7 @@ export default async function Home() {
         as="section"
         className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center md:min-h-screen"
       >
-        <div className="rounded-t-xl p-4 backdrop-blur-lg">
+        <div id="tilli-about" className="rounded-t-xl p-4 backdrop-blur-lg">
           <div className="flex flex-col items-center justify-center md:flex-row">
             <h2 className="w-full border-r-2 border-primary p-8 text-right text-6xl md:w-2/5">
               tilli
