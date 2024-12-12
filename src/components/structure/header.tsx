@@ -17,7 +17,7 @@ import {
 import { ThemeToggleSSR } from "~/features/theme";
 import { cn } from "~/lib/utils";
 
-import MobileDrawer from "./mobile-drawer";
+// import MobileDrawer from "./mobile-drawer";
 
 const ListItem = forwardRef<
   React.ElementRef<"a">,
@@ -157,7 +157,7 @@ const Header: React.FC = async () => {
               className="pointer-events-none h-8 w-8"
             />
           </Link>
-          <div className="hidden items-center justify-start gap-4 md:flex">
+          <div className="flex items-center justify-start gap-4 md:flex">
             <NavigationMenu aria-label="Career Navigation">
               <NavigationMenuList>
                 {/* <ProductTab /> */}
@@ -179,9 +179,9 @@ const Header: React.FC = async () => {
           <ThemeToggleSSR />
         </div>
       </header>
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <MobileDrawer visited={!!visited?.value} />
-      </div>
+      </div> */}
     </>
   );
 };
