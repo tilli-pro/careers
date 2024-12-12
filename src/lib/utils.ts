@@ -140,3 +140,5 @@ export const fmtCurrency = new Intl.NumberFormat("en-us", {
   compactDisplay: "long",
   notation: "compact",
 }).format;
+
+export type HexCode = `#${string}`;

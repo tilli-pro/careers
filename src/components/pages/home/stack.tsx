@@ -41,6 +41,11 @@ const slugs = [
   "ubuntu",
   "figma",
   "electron",
+  "hashicorp",
+  "elastic",
+  "amazonec2",
+  "amazonelasticache",
+  "awselasticloadbalancing",
 ].sort(() => Math.random() - 0.5);
 
 const Stack: React.FC = () => {

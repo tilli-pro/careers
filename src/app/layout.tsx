@@ -3,6 +3,7 @@ import { Figtree, Lora } from "next/font/google";
 import { type Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 
+import Footer from "~/components/structure/footer";
 import Header from "~/components/structure/header";
 import { getServerTheme } from "~/features/theme/server-theme";
 import { ThemeProvider } from "~/features/theme/use-theme";
@@ -48,6 +49,7 @@ export default async function RootLayout({
             <TRPCReactProvider>
               <HydrateClient>{children}</HydrateClient>
             </TRPCReactProvider>
+            <Footer />
           </body>
         </html>
       </ThemeProvider>

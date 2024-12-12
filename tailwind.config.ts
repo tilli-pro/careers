@@ -132,8 +132,20 @@ export default {
             backgroundPosition: "var(--bg-size) 0",
           },
         },
+        shine: {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "50% 50%",
+          },
+          to: {
+            "background-position": "0% 0%",
+          },
+        },
       },
       animation: {
+        shine: "shine var(--duration) infinite linear",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-once": "pulse-once 1.2s 2 ease-in",

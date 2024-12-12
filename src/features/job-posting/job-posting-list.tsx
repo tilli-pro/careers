@@ -2,6 +2,8 @@
 
 import { Suspense } from "react";
 
+import { Skeleton } from "~/components/ui/skeleton";
+
 import { useJobPostListData } from "./job-posting-list-context";
 import JobPostingListItem from "./job-posting-list-item.server";
 import { JobPostingSchema } from "./types";
@@ -11,21 +13,9 @@ const JobPostingList: React.FC<{ initialPosts: JobPostingSchema[] }> = ({
 }) => {
   const { posts } = useJobPostListData();
 
-  return (
-    <Suspense
-      fallback={
-        <>
-          {initialPosts.map((role) => (
-            <JobPostingListItem key={role.id} {...role} />
-          ))}
-        </>
-      }
-    >
-      {posts.map((role) => (
-        <JobPostingListItem key={role.id} {...role} />
-      ))}
-    </Suspense>
-  );
+  console.log("asdf", posts.length);
+
+  return posts.map((role) => <JobPostingListItem key={role.id} {...role} />);
 };
 
 export default JobPostingList;

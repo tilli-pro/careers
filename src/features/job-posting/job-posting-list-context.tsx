@@ -87,7 +87,7 @@ export const JobPostingListDataProvider: React.FC<
   if (typeof window !== "undefined") {
     useEffect(() => {
       const observer = new MutationObserver(function (mutations) {
-        console.log(document.location.href);
+        // console.log(document.location.href);
       });
 
       const config = {

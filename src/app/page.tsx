@@ -1,9 +1,14 @@
+import { Suspense } from "react";
+
 import Benefits from "~/components/pages/home/benefits";
 import Hero from "~/components/pages/home/hero";
 import "~/components/pages/home/topo/map.css";
 import BasePage from "~/components/structure/base-page";
 import { VelocityScroll } from "~/components/ui/scroll-based-velocity";
+import { Separator } from "~/components/ui/separator";
 import { JobPostingList } from "~/features/job-posting";
+import { JobPostingListSkeleton } from "~/features/job-posting/job-posting-list.server";
+import ProductRow from "~/features/product/product-row";
 
 export default async function Home() {
   return (
@@ -43,6 +48,7 @@ export default async function Home() {
         </div>
         <div className="flex w-full bg-primary py-2 font-mono text-2xl font-bold text-secondary shadow-md">
           <VelocityScroll
+            className="select-none"
             text={
               <>
                 <span className="text-amber-400 dark:text-amber-500">Love</span>{" "}
@@ -64,11 +70,18 @@ export default async function Home() {
         </div>
       </BasePage>
 
+      <BasePage as="section" className="relative z-10 md:min-h-[50vh]">
+        <h2 className="self-center rounded-md bg-background/50 px-4 py-2 text-center font-sans backdrop-blur lg:text-left">
+          What We Make
+        </h2>
+        <ProductRow />
+      </BasePage>
+
       <Benefits />
 
-      <BasePage as="section" className="py-16">
+      <BasePage as="section" className="pt-16">
         {/* <Stack /> */}
-        <h2 className="relative z-10 text-4xl">Open Roles at Tilli</h2>
+        <h2 className="relative z-10 text-4xl">Open Roles at tilli</h2>
         <p className="p-1">
           Don't see a match? Drop us a line at{" "}
           <a
@@ -81,9 +94,11 @@ export default async function Home() {
           and we'll stay in touch.
         </p>
         <div id="roles">
-          <JobPostingList />
+          <Suspense fallback={<JobPostingListSkeleton />}>
+            <JobPostingList />
+          </Suspense>
         </div>
-        <hr className="py-20" />
+        <Separator className="mt-8" />
       </BasePage>
     </main>
   );

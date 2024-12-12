@@ -1,3 +1,6 @@
+import { Suspense } from "react";
+
+import { Skeleton } from "~/components/ui/skeleton";
 import { cn, multiGroupBy } from "~/lib/utils";
 import { api } from "~/trpc/server";
 
@@ -10,6 +13,31 @@ interface JobPostingListProps {
   showFilters?: boolean;
   filterClassName?: string;
 }
+
+export const JobPostingListSkeleton: React.FC<{ amount?: number }> = ({
+  amount = 3,
+}) => (
+  <div className="my-4 flex h-full w-full flex-col gap-4">
+    {[...Array(amount)].map((_, i) => (
+      <div
+        key={`${i}-`}
+        className="grid min-h-[114px] grid-flow-col grid-rows-1 items-center gap-4 rounded border border-border bg-background/80 backdrop-blur transition-colors duration-150 has-[a.role:hover]:border-blue-400 md:grid-cols-3"
+      >
+        <div className="flex flex-col gap-1 p-4">
+          <Skeleton className="mb-2 h-5" />
+          <div className="mb-1 flex flex-row gap-2">
+            <Skeleton className="h-6 w-1/2" />
+            <Skeleton className="h-6 w-1/4" />
+          </div>
+          <div className="flex flex-row gap-2">
+            <Skeleton className="h-4 w-2/3" />
+          </div>
+        </div>
+        <Skeleton className="ml-auto mr-4 h-12 w-1/4" />
+      </div>
+    ))}
+  </div>
+);
 
 const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
   input,
@@ -39,6 +67,7 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
             label: `${location.split(";;;")[0] ?? ""} (${roles.length})`,
           })),
         },
+        posts,
       }}
     >
       {showFilters && (
@@ -47,24 +76,6 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
         >
           <JobPostingFilter filter="location" />
           <JobPostingFilter filter="department" />
-          {/* <ComboboxSSR
-            values={Object.entries(departments).map(([department, roles]) => ({
-              value: department.split(";;;")[1] ?? "",
-              label: `${department.split(";;;")[0] ?? ""} (${roles.length})`,
-              to: `/roles?${queryParam("department", department.split(";;;")[1] ?? "")}`,
-            }))}
-            placeholder="Department"
-            defaultValue={input?.department}
-          />
-          <ComboboxSSR
-            values={Object.entries(locations).map(([location, roles]) => ({
-              value: location.split(";;;")[1] ?? "",
-              label: `${location.split(";;;")[0] ?? ""} (${roles.length})`,
-              to: `/roles?${queryParam("location", location.split(";;;")[1] ?? "")}`,
-            }))}
-            placeholder="Location"
-            defaultValue={input?.location}
-          /> */}
         </div>
       )}
       <div className="my-4 flex h-full w-full flex-col gap-4">

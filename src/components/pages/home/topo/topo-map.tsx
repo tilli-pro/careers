@@ -33,7 +33,7 @@ const TopoMap: React.FC<MapProps> = ({
         const scroll = window.scrollY;
 
         const scrollSwap = 300;
-        const maxScroll = Math.min(scroll, 300);
+        // const maxScroll = Math.min(scroll, 300);
 
         const rotX = `${Math.min(scroll / 6, 65).toFixed(4)}deg`;
         const rotZ = `${Math.max(-scroll / 12, -15).toFixed(4)}deg`;
@@ -49,7 +49,7 @@ const TopoMap: React.FC<MapProps> = ({
           island.style.border = `solid 4px rgba(${borderHex}, ${borderHex}, ${borderHex}, ${islandOpacity})`;
         } else if (island) {
           island.style.transform = defaultTransform;
-          island.style.border = `solid 4px rgba(${borderHex}, ${borderHex}, ${borderHex}, 0)`;
+          island.style.border = `solid 0px rgba(${borderHex}, ${borderHex}, ${borderHex}, 0)`;
         }
 
         const mapBorder = document.getElementById("map-border");

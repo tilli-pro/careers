@@ -21,3 +21,17 @@
 :root[data-mode="dark"] .theme-toggle path:nth-child(n + 2) {
   @apply fill-inherit stroke-inherit opacity-50 stroke-1;
 }
+
+.header-blur {
+  mask-image: linear-gradient(
+    to bottom,
+    black 0% 50%,
+    transparent 50% 100%
+  );
+}
+
+.header-blur::after {
+  content: " ";
+  top: calc(50% - 4px);
+  @apply block w-full absolute h-1 bg-primary/10 backdrop-blur-lg;
+}

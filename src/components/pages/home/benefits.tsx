@@ -15,7 +15,7 @@ import { cn } from "~/lib/utils";
 
 const Benefits: React.FC = () => {
   return (
-    <section className="relative w-full rounded-br-2xl bg-gradient-to-br from-background via-muted/10 to-muted/40 shadow-lg shadow-primary/10">
+    <section className="relative w-full rounded-br-2xl bg-gradient-to-br from-background via-muted/10 to-muted/40 shadow-lg shadow-primary/5">
       <div className="absolute top-1/2 z-0 w-full -translate-y-1/2">
         <Particles />
       </div>
