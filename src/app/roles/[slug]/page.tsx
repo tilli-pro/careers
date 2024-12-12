@@ -19,7 +19,6 @@ import { compile, run } from "@mdx-js/mdx";
 import { SocialLink } from "@prisma/client";
 import { Globe } from "lucide-react";
 import { Check } from "lucide-react";
-import { renderToString } from "react-dom/server";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -167,6 +166,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
   if (!post?.post) return notFound();
 
   const code = await getMDX(post);
+
   const { default: MDXContent } = await run(code, {
     ...runtime,
     baseUrl: import.meta.url,

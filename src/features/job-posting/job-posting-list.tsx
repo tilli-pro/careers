@@ -13,8 +13,6 @@ const JobPostingList: React.FC<{ initialPosts: JobPostingSchema[] }> = ({
 }) => {
   const { posts } = useJobPostListData();
 
-  console.log("asdf", posts.length);
-
   return posts.map((role) => <JobPostingListItem key={role.id} {...role} />);
 };
 
