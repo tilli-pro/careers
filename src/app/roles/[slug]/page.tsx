@@ -1,6 +1,8 @@
 import React from "react";
 
+import { unstable_cache } from "next/cache";
 import Form from "next/form";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import * as runtime from "react/jsx-runtime";
@@ -17,7 +19,7 @@ import { compile, run } from "@mdx-js/mdx";
 import { SocialLink } from "@prisma/client";
 import { Globe } from "lucide-react";
 import { Check } from "lucide-react";
-import { Link } from "next-view-transitions";
+import { renderToString } from "react-dom/server";
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
@@ -37,9 +39,24 @@ interface PageProps {
 const defaultQuestions = () => {
   const placeholderFirstName = faker.person.firstName();
   const placeholderLastName = faker.person.lastName();
+  const baseProviders = ["gmail.com", "outlook.com", "icloud.com"];
+  const providers = [
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    ...baseProviders,
+    "apple.com",
+    "github.com",
+    "linear.app",
+  ];
   const placeholderEmail = faker.internet.email({
     firstName: placeholderFirstName,
     lastName: placeholderLastName,
+    provider: providers[Math.floor(Math.random() * providers.length)],
   });
 
   return [
@@ -128,18 +145,28 @@ const Social: React.FC<{ social: SocialLink }> = ({ social }) => {
   );
 };
 
+const getMDX = unstable_cache(
+  async (post: Awaited<ReturnType<typeof api.post.bySlug>>) => {
+    const code = String(
+      await compile(post!.post, { outputFormat: "function-body" }),
+    );
+
+    return code;
+  },
+  ["job-post"],
+  {
+    revalidate: 60 * 60,
+  },
+);
+
 const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
   const slug = (await params).slug;
   const submissionSuccessful = "submitted" in (await searchParams);
 
   const post = await api.post.bySlug({ slug });
-
   if (!post?.post) return notFound();
 
-  const code = String(
-    await compile(post.post, { outputFormat: "function-body" }),
-  );
-
+  const code = await getMDX(post);
   const { default: MDXContent } = await run(code, {
     ...runtime,
     baseUrl: import.meta.url,

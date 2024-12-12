@@ -2,9 +2,9 @@ import React, { forwardRef } from "react";
 
 import { cookies } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 
 import { cva } from "class-variance-authority";
-import { Link } from "next-view-transitions";
 
 import {
   NavigationMenu,

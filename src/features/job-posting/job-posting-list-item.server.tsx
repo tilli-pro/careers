@@ -1,6 +1,5 @@
 import React from "react";
 
-// import { Link } from "next-view-transitions";
 import Link from "next/link";
 
 import { ArrowRight } from "lucide-react";
@@ -63,6 +62,7 @@ const JobPostingListItem: React.FC<JobPostingSchema> = ({
         </div>
       )}
       <Link
+        prefetch
         href={`/roles/${slug}`}
         className="role w-18 group col-auto ml-auto flex items-center self-stretch rounded-r-[3px] bg-transparent p-6 transition-colors duration-150 hover:bg-blue-500"
       >

@@ -57,8 +57,8 @@ const products: ProductItemProps[] = [
       <div className="">
         <span
           className={cn(
-            useTilliXBaseSerif ? "font-sans" : "font-serif",
-            "relative z-10 text-3xl font-medium drop-shadow-sm",
+            useTilliXBaseSerif ? "font-tilli" : "font-serif",
+            "relative z-10 text-3xl font-medium tracking-[0.075em] drop-shadow-sm",
           )}
         >
           tilli
@@ -66,7 +66,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn(useTilliXBaseSerif ? "font-serif" : "font-sans"),
-            "relative z-0 bg-gradient-to-br from-muted via-primary/80 to-primary bg-clip-text text-4xl font-extrabold text-transparent")
+            "relative z-0 bg-gradient-to-br from-muted via-primary/80 to-primary bg-clip-text text-4xl font-bold text-transparent")
           }
         >
           X

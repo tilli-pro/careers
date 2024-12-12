@@ -1,4 +1,4 @@
-import { Figtree, Lora } from "next/font/google";
+import { Figtree, Lora, SUSE } from "next/font/google";
 
 import { type Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
@@ -31,6 +31,12 @@ const HeaderFont = Lora({
   variable: "--font-header",
 });
 
+const TilliFont = SUSE({
+  weight: "variable",
+  subsets: ["latin-ext"],
+  variable: "--font-tilli",
+});
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -41,7 +47,7 @@ export default async function RootLayout({
       <ThemeProvider>
         <html
           lang="en"
-          className={`${HeaderFont.variable} ${BodyFont.variable}`}
+          className={`${HeaderFont.variable} ${BodyFont.variable} ${TilliFont.variable}`}
           data-mode={theme}
         >
           <body className="overflow-x-hidden">

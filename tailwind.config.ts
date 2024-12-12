@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ["var(--font-body)", ...fontFamily.sans],
         serif: ["var(--font-header)", ...fontFamily.serif],
+        tilli: ["var(--font-tilli)", ...fontFamily.serif],
       },
       borderRadius: {
         lg: "var(--radius)",
