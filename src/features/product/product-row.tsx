@@ -66,7 +66,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn(useTilliXBaseSerif ? "font-serif" : "font-sans"),
-            "relative z-0 bg-gradient-to-br from-muted/50 via-primary/50 to-primary bg-clip-text text-4xl font-extrabold text-transparent")
+            "relative z-0 bg-gradient-to-br from-muted via-primary/80 to-primary bg-clip-text text-4xl font-extrabold text-transparent")
           }
         >
           X
