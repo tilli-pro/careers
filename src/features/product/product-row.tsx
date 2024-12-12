@@ -58,7 +58,7 @@ const products: ProductItemProps[] = [
         <span
           className={cn(
             useTilliXBaseSerif ? "font-tilli" : "font-serif",
-            "relative z-10 text-3xl font-medium tracking-[0.075em] drop-shadow-sm",
+            "relative z-10 text-3xl font-medium tracking-[0.075em]",
           )}
         >
           tilli
