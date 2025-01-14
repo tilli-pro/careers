@@ -108,3 +108,17 @@
     @apply text-xl;
   }
 }
+
+.monay-logo-svg {
+  @apply fill-black dark:fill-white stroke-black dark:stroke-white;
+}
+
+svg.nudge-logo-svg .nudge-green {
+  --nudge-green: #7EE089;
+  @apply fill-[var(--nudge-green)];
+}
+
+svg.nudge-logo-svg .nudge-blue {
+  --nudge-blue: #239ED6;
+  @apply fill-[var(--nudge-blue)];
+}

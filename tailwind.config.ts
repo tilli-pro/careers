@@ -144,6 +144,14 @@ export default {
             "background-position": "0% 0%",
           },
         },
+        "globe-spin": {
+          from: {
+            transform: "rotateY(0deg)",
+          },
+          to: {
+            transform: "rotateY(360deg)",
+          },
+        },
       },
       animation: {
         shine: "shine var(--duration) infinite linear",
@@ -151,10 +159,11 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "pulse-once": "pulse-once 1.2s 2 ease-in",
         aurora: "aurora 60s linear infinite",
-        meteor: "meteor 5s linear infinite",
+        meteor: "meteor 10s ease-in-out infinite",
         "background-position-spin":
           "background-position-spin 3000ms infinite alternate",
         gradient: "gradient 8s linear infinite",
+        globe: "globe-spin 36s infinite ease-in-out",
       },
     },
   },

@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
         </div>
         <div className="absolute left-0 top-0 grid h-full max-h-screen w-full grid-cols-3 grid-rows-4 md:grid-rows-3">
           <div className="col-span-2 row-start-2 flex flex-col items-end justify-center self-center text-right md:col-span-1">
-            <h1 className="select-none bg-background/50 p-2 backdrop-blur">
+            <h1 className="select-none bg-background/50 p-2 text-2xl backdrop-blur md:text-4xl">
               Grow your Career.
               <br />
               Join the Creators.

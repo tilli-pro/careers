@@ -24,7 +24,7 @@ interface ShineBorderProps {
  * @param className defines the class name to be applied to the component
  * @param children contains react node elements.
  */
-export function ShineBorder({
+export const ShineBorder: React.FC<ShineBorderProps> = ({
   borderRadius = 8,
   borderWidth = 1,
   duration = 14,
@@ -32,7 +32,7 @@ export function ShineBorder({
   className,
   shineOnHover = false,
   children,
-}: ShineBorderProps) {
+}) => {
   return (
     <div
       style={
@@ -41,7 +41,7 @@ export function ShineBorder({
         } as React.CSSProperties
       }
       className={cn(
-        "group relative min-h-[60px] w-fit place-items-center rounded-[--border-radius] bg-white p-3 text-black dark:bg-black dark:text-white",
+        "group relative min-h-[60px] w-fit place-items-center rounded-[--border-radius] bg-white text-black dark:bg-black dark:text-white",
         className,
       )}
     >
@@ -58,7 +58,7 @@ export function ShineBorder({
         className={cn(
           shineOnHover
             ? [
-                "motion-safe:before:animate-shine ease-in-out motion-safe:before:opacity-0 motion-safe:before:transition-all motion-safe:before:duration-1000 motion-safe:before:[animation-duration:var(--duration)] motion-safe:before:[animation-play-state:paused] group-hover:motion-safe:before:opacity-100 group-hover:motion-safe:before:[animation-play-state:running]",
+                "ease-in-out motion-safe:before:animate-shine motion-safe:before:opacity-0 motion-safe:before:transition-all motion-safe:before:duration-1000 motion-safe:before:[animation-duration:var(--duration)] motion-safe:before:[animation-play-state:paused] group-hover:motion-safe:before:opacity-100 group-hover:motion-safe:before:[animation-play-state:running]",
               ]
             : "motion-safe:before:animate-shine",
           `pointer-events-none box-border before:absolute before:-inset-[2px] before:h-[calc(100%+4px)] before:w-[calc(100%+4px)] before:rounded-[--border-radius] before:p-[--border-width] before:will-change-[background-position] before:content-[""] before:![-webkit-mask-composite:xor] before:[background-image:--background-radial-gradient] before:[background-size:300%_300%] before:![mask-composite:exclude] before:[mask:--mask-linear-gradient]`,
@@ -67,4 +67,4 @@ export function ShineBorder({
       {children}
     </div>
   );
-}
+};

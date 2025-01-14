@@ -30,24 +30,26 @@ const TopoMap: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      let scrollSwap = 300;
-      if(animateOnId) {
-        const el = document.getElementById(animateOnId);
-        if(el) {
-          const rect = el.getBoundingClientRect();
-          scrollSwap = (rect.top / 2) + window.scrollY;
-        }
-      }
       const scrollListener = () => {
+        let scrollSwap = 300;
+        let baseTranslate = 440;
+        if(animateOnId) {
+          const el = document.getElementById(animateOnId);
+          if(el) {
+            const minScroll = 30;
+            const rect = el.getBoundingClientRect();
+            const topOffset = rect.y + window.scrollY;
+            baseTranslate = topOffset + window.innerHeight;
+            scrollSwap = Math.max(minScroll, topOffset - window.innerHeight * 0.5);
+          }
+        }
         const island = document.getElementById("island");
         const scroll = window.scrollY;
 
-        // const maxScroll = Math.min(scroll, 300);
-
-        const rotX = `${Math.min(scroll / 6, 65).toFixed(4)}deg`;
-        const rotZ = `${Math.max(-scroll / 12, -15).toFixed(4)}deg`;
-        const transY = `${Math.min(1400, window.innerHeight * 4)}px`;
-        const transX = `-${Math.min(scroll / 12, 12).toFixed(4)}vw`;
+        const rotX = `${Math.min(scrollSwap, 65).toFixed(4)}deg`;
+        const rotZ = `${Math.max(-scrollSwap, -15).toFixed(4)}deg`;
+        const transY = `${Math.min(baseTranslate)}px`;
+        const transX = `-${Math.min(20).toFixed(4)}vw`;
 
         const islandTransform = `rotateX(${rotX}) rotateZ(${rotZ}) translate3d(${transX}, ${transY}, 0)`;
         const islandOpacity = Math.min(scroll * 0.0015, 1).toFixed(3);

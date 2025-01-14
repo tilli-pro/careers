@@ -17,33 +17,43 @@ export default async function Home() {
 
       <BasePage
         as="section"
-        className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center md:min-h-screen"
+        className="relative z-10 mb-16 flex min-h-0 flex-col items-center justify-center md:min-h-0 lg:mb-0 lg:min-h-screen"
+        id="tilli-about"
       >
-        <div id="tilli-about" className="rounded-t-xl p-4 backdrop-blur-lg">
+        <div className="rounded-t-xl bg-background/15 p-4 backdrop-blur">
           <div className="flex flex-col items-center justify-center md:flex-row">
-            <h2 className="w-full border-r-2 border-primary p-8 text-right text-6xl md:w-2/5">
+            <h2 className="w-full flex-shrink flex-grow-0 border-r-2 border-primary p-8 text-right text-6xl md:w-2/5">
               tilli
             </h2>
-            <p className="p-8 text-right text-lg md:text-left">
-              We are a team of{" "}
-              <span className="font-semibold text-zinc-600 dark:text-zinc-400">
-                creators
-              </span>
-              ,{" "}
-              <span className="font-semibold text-slate-600 dark:text-slate-400">
-                builders
-              </span>
-              , and{" "}
-              <span className="font-semibold text-stone-600 dark:text-stone-400">
-                innovators
-              </span>
-              . Our mission is to create software that will stand the test of
-              time. Above all else, we place our trust in the{" "}
-              <span className="font-semibold text-amber-600 dark:text-amber-400">
-                values
-              </span>{" "}
-              we use to build.
-            </p>
+            <div className="flex-grow-1 p-8 text-right md:text-left md:text-lg">
+              <p>
+                We are a team of{" "}
+                <span className="font-semibold text-zinc-600 dark:text-zinc-400">
+                  creators
+                </span>
+                ,{" "}
+                <span className="font-semibold text-slate-600 dark:text-slate-400">
+                  builders
+                </span>
+                , and{" "}
+                <span className="font-semibold text-stone-600 dark:text-stone-400">
+                  innovators
+                </span>
+                .
+              </p>
+              <p>
+                Our mission is to create software that will{" "}
+                <span className="font-semibold">
+                  redefine digital convenience
+                </span>{" "}
+                and stand the test of time. Above all else, we place our trust
+                in the{" "}
+                <span className="font-semibold text-amber-600 dark:text-amber-400">
+                  values
+                </span>{" "}
+                we use to build.
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex w-full bg-primary py-2 font-mono text-2xl font-bold text-secondary shadow-md">
