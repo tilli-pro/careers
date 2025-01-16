@@ -1,7 +1,7 @@
 const SpinningSphere: React.FC<{ size?: number }> = ({ size = 50 }) => {
   return (
     <div
-      className="relative z-0 bg-blue-500/5"
+      className="relative z-0 bg-blue-500/50"
       style={{
         height: size,
         width: size,
@@ -29,7 +29,7 @@ const SpinningSphere: React.FC<{ size?: number }> = ({ size = 50 }) => {
             }}
           >
             <div
-              className="animate-globe border-2 border-blue-500 will-change-auto dark:border-blue-300"
+              className="animate-globe border border-blue-500 will-change-auto dark:border-blue-300"
               style={{
                 height: size,
                 width: size,
@@ -50,7 +50,7 @@ const SpinningSphere: React.FC<{ size?: number }> = ({ size = 50 }) => {
             transform: "rotateX(90deg)",
           }}
         >
-          <div className="absolute inset-0 rounded-full border-2 border-blue-500/50 bg-blue-500/10 dark:border-blue-300" />
+          <div className="absolute inset-0 rounded-full border border-blue-500/50 bg-blue-500/10 dark:border-blue-300" />
         </div>
 
         <div
@@ -62,7 +62,7 @@ const SpinningSphere: React.FC<{ size?: number }> = ({ size = 50 }) => {
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="absolute inset-0 rounded-full border-2 border-blue-500/50 bg-black/10 dark:border-blue-300" />
+          <div className="absolute inset-0 rounded-full border border-blue-500/50 bg-black/10 dark:border-blue-300" />
         </div>
       </div>
     </div>

@@ -37,27 +37,30 @@ const dbBySlug = unstable_cache(
   { revalidate: 60 * 60 },
 );
 
+export const dbAll = unstable_cache(
+  async () => {
+    return db.jobPosting.findMany({
+      include: defaultInclude,
+    });
+  },
+  ["jobPostingAll"],
+  { revalidate: 60 * 60 },
+);
+
 export const postRouter = createTRPCRouter({
   all: publicProcedure
     .input(roleSearch.optional())
     .query(async ({ ctx, input = {} }) => {
       const { location, department } = input;
 
-      const params = roleSearchWhere<{
-        location: { slug: string };
-        department: { slug: string };
-      }>({});
-      if (location) {
-        params.location = { slug: location };
-      }
-      if (department) {
-        params.department = { slug: department };
-      }
-
-      return ctx.db.jobPosting.findMany({
-        include: defaultInclude,
-        ...(Object.keys(params).length > 0 && { where: params }),
-      });
+      const allPosts = await dbAll();
+      return location || department
+        ? allPosts.filter((post) => {
+            if (location && post.location.slug !== location) return false;
+            if (department && post.department.slug !== department) return false;
+            return true;
+          })
+        : allPosts;
     }),
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))

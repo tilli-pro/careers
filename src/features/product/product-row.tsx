@@ -4,6 +4,7 @@ import AnimatedGridPattern from "~/components/ui/animated-grid-pattern";
 import Meteors from "~/components/ui/meteors";
 import { ShineBorder } from "~/components/ui/shine-border";
 import SpinningSphere from "~/components/ui/sphere";
+import Twinkle from "~/components/ui/twinkle";
 import { type HexCode, cn } from "~/lib/utils";
 
 import { MonayIcon } from "./icons/monay";
@@ -50,9 +51,15 @@ const ProductItem: React.FC<ProductItemProps> = ({
         duration={24}
       >
         <div className="relative box-border min-h-60 w-full flex-col">
+          <div className="absolute z-[1] h-[calc(50%+28px)] w-full rounded-t-[6px]">
+            <div className="mixed-blur absolute w-full rounded-t-[6px]" />
+          </div>
+          <div className="absolute inset-0 -bottom-2 -left-2 z-0 opacity-0 transition-all duration-1000 group-hover:opacity-100">
+            {background}
+          </div>
           {!!Logo && (
             <div
-              className="absolute bottom-0 right-0 z-0 p-2"
+              className="absolute bottom-0 right-0 z-[2] p-2"
               style={
                 {
                   "--icon-color": gradient[0],
@@ -62,10 +69,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
               <Logo className="fill-black opacity-15 transition-all duration-1000 group-hover:fill-[var(--icon-color)] group-hover:opacity-100 dark:fill-white" />
             </div>
           )}
-          <div className="absolute inset-0 -bottom-2 -left-2 opacity-0 transition-all duration-1000 group-hover:opacity-100">
-            {background}
-          </div>
-          <div className="flex items-center rounded-t-lg">
+          <div className="z-10 flex items-center rounded-t-lg">
             <div className="z-10 p-8">
               <div className="h-12 font-tilli text-3xl font-medium">{name}</div>
               <div>
@@ -99,7 +103,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-red-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent dark:via-primary/80 dark:to-primary")
+            "relative z-0 bg-gradient-to-br from-red-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
           }
         >
           X
@@ -121,14 +125,14 @@ const products: ProductItemProps[] = [
     description: "Our flagship product. The ultimate digital experience.",
     background: (
       <AnimatedGridPattern
-        numSquares={60}
+        numSquares={200}
         maxOpacity={0.2}
-        duration={2}
+        duration={4}
         repeatDelay={0.2}
         className={cn(
-          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
-          "text-[#F1959B]",
+          "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-30%] h-[200%] -skew-y-[48deg]",
+          "text-[#DC1C13]",
         )}
       />
     ),
@@ -147,7 +151,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-emerald-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent dark:via-primary/80 dark:to-primary")
+            "relative z-0 bg-gradient-to-br from-emerald-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
           }
         >
           PRO
@@ -157,8 +161,12 @@ const products: ProductItemProps[] = [
     slug: "nudge",
     Logo: NudgeIcon,
     gradient: ["#7EE089", "#00AA00"],
-    description: "A nudge in time saves nine. Don't ask what that means.",
-    background: <Meteors color="#7EE089AA" number={40} size={8} />,
+    description: "A nudge in time saves nine. Imagine what a million could do.",
+    background: (
+      <div className="absolute inset-0 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)]">
+        <Meteors number={300} color="#7EE08988" />
+      </div>
+    ),
   },
   {
     name: (
@@ -174,7 +182,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-blue-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow dark:via-primary/80 dark:to-primary")
+            "relative z-0 bg-gradient-to-br from-blue-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
           }
         >
           GPS
@@ -186,8 +194,29 @@ const products: ProductItemProps[] = [
     gradient: ["#2E69F5", "#4BA4F8"],
     description: "Global payments. Galaxy scale.",
     background: (
-      <div className="absolute bottom-4 left-8 scale-[300%] opacity-25">
-        <SpinningSphere size={100} />
+      <div className="absolute inset-0 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)]">
+        <div className="absolute inset-0 z-0">
+          <Twinkle
+            colors={["#4BA4F8", "#2E69F5"]}
+            className="opacity-50"
+            number={60}
+            size={2}
+          />
+        </div>
+        <div className="absolute bottom-4 left-8 z-[1] scale-[300%] opacity-25 backdrop-blur">
+          <SpinningSphere size={100} />
+        </div>
+        <div className="absolute inset-0 bottom-1/3 left-1/3 top-1/3 z-[2]">
+          <Twinkle number={60} colors={["#4BA4F8", "#2E69F5"]} size={6} />
+        </div>
+        <div className="absolute inset-0 left-1/3 z-0">
+          <Twinkle
+            colors={["#4BA4F8", "#2E69F5"]}
+            className="opacity-50"
+            number={100}
+            size={4}
+          />
+        </div>
       </div>
     ),
   },

@@ -152,6 +152,28 @@ export default {
             transform: "rotateY(360deg)",
           },
         },
+        twinkle: {
+          "0%": {
+            opacity: "0",
+            rotate: "0deg",
+          },
+          "10%": {
+            opacity: "1",
+            rotate: "180deg",
+          },
+          "50%": {
+            opacity: "0",
+            rotate: "0deg",
+          },
+          "82%": {
+            opacity: "1",
+            rotate: "540deg",
+          },
+          "100%": {
+            opacity: "0",
+            rotate: "0deg",
+          },
+        },
       },
       animation: {
         shine: "shine var(--duration) infinite linear",
@@ -163,7 +185,8 @@ export default {
         "background-position-spin":
           "background-position-spin 3000ms infinite alternate",
         gradient: "gradient 8s linear infinite",
-        globe: "globe-spin 36s infinite ease-in-out",
+        globe: "globe-spin 24s infinite linear",
+        twinkle: "twinkle 2s ease-in-out infinite",
       },
     },
   },

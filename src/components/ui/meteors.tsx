@@ -21,7 +21,7 @@ export const Meteors = ({
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
       top: -5,
-      left: Math.floor(Math.random() * window.innerWidth) + "px",
+      left: 100 - Math.floor(Math.random() * 200) + "%",
       animationDelay: Math.random() * 1 + 0.2 + "s",
       animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
     }));
@@ -43,7 +43,7 @@ export const Meteors = ({
           <div
             className="pointer-events-none absolute top-1/2 -z-10 w-[50px] -translate-y-1/2"
             style={{
-              height: size / 2,
+              height: size / 1.5,
               background: `linear-gradient(to right, ${color}, transparent)`,
             }}
           />

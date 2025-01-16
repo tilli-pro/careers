@@ -89,6 +89,8 @@ model JobApplication {
   addresses     String[] @default([])
   resumeUrl     String
   attribution   String? // where did you hear about us?
+  notifiedWeb   Boolean  @default(false)
+  notifiedEmail Boolean  @default(false)
 
   posting   JobPosting @relation(fields: [postingId], references: [id])
   postingId String
@@ -150,6 +152,21 @@ model Interviewer {
   hiringManagerId String
 }
 
+model SocialAccount {
+  type  SocialLink
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@id([type, userId])
+  @@unique([type, value])
+  @@unique([value, userId])
+}
+
 // HERE BE DRAGONS
 // This is all Next Auth related stuff
 // Modify at your own risk
@@ -190,6 +207,7 @@ model User {
 
   accounts Account[]
   sessions Session[]
+  socials  SocialAccount[]
 
   hiringManager HiringManager?
   interviewer   Interviewer?

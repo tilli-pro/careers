@@ -13,9 +13,17 @@ interface MergeTag {
 export const sendNudgeEmail = async (
   email: ToEmail,
   nudgeId: string | number,
-  mergeTags?: MergeTag[],
+  mergeTags?: MergeTag[] | Record<string, string>,
 ) => {
-  const result = await fetch("https://app.nudge.net/api/v1/Nudge/Send", {
+  mergeTags = mergeTags ?? [];
+  mergeTags = Array.isArray(mergeTags)
+    ? mergeTags
+    : Object.entries(mergeTags).map(([tagName, tagValue]) => ({
+        tagName,
+        tagValue,
+      }));
+
+  const result = await fetch("https://app.nudge.net/api/v2/Nudge/Send", {
     method: "POST",
     headers: {
       accept: "application/json",
@@ -33,6 +41,13 @@ export const sendNudgeEmail = async (
 
   if (result.status >= 200 && result.status <= 399) {
     return true;
+  }
+
+  try {
+    const text = await result.text();
+    console.log(result.status, text);
+  } catch (e) {
+    console.log(e);
   }
 
   return false;
