@@ -54,6 +54,7 @@ interface PageProps {
 
 const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
   const slug = (await params).slug;
+  console.log(await params, await searchParams);
   const applicantId = (await searchParams).submitted;
 
   const post = await api.post.bySlug({ slug });
@@ -89,7 +90,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
   return (
     <div className="relative mb-12 grid grid-cols-3 items-start gap-4 md:grid-rows-1">
       <article className="relative col-span-3 md:col-span-2">
-        <Link href="#apply" className="absolute right-4 top-4 z-50">
+        <Link href="#apply" className="absolute right-4 top-4 z-[30]">
           <Button
             className={cn(
               "md:hidden dark:text-white",
