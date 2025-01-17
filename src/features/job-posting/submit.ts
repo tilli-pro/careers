@@ -237,22 +237,22 @@ export const submitJobApp = async (data: FormData) => {
 
       try {
         const settled = await Promise.allSettled([
-          sendNudgeEmail({ name, email }, env.NUDGE_NOTIFY_ID, mergeTags),
+          sendNudgeEmail(
+            { name, email },
+            env.NUDGE_NOTIFY_ID,
+            mergeTags,
+            undefined,
+            { emailBcc: env.HIRING_SUPER_EMAIL },
+          ),
           sendNudgeEmail(
             { name: env.HIRING_SUPER_NAME, email: env.HIRING_SUPER_EMAIL },
             env.NUDGE_SUBMIT_ID,
             mergeTags,
+            resume ? [resume] : undefined,
+            role?.hiringManager.user.email
+              ? { emailCc: role?.hiringManager.user.email }
+              : undefined,
           ),
-          role
-            ? sendNudgeEmail(
-                {
-                  name: role.hiringManager.user.name ?? "",
-                  email: role.hiringManager.user.email ?? "",
-                },
-                env.NUDGE_SUBMIT_ID,
-                mergeTags,
-              )
-            : null,
         ]);
         settled.forEach((result) => {
           if (result.status === "rejected") {
