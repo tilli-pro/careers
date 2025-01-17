@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 
 import { Prisma } from "@prisma/client";
+import { count } from "console";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -62,6 +63,9 @@ export const postRouter = createTRPCRouter({
           })
         : allPosts;
     }),
+  count: publicProcedure.query(async () => {
+    return (await dbAll()).length;
+  }),
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {

@@ -136,3 +136,12 @@ svg.nudge-logo-svg .nudge-blue {
 .group .monay-icon-circle {
   @apply fill-primary;
 }
+
+@keyframes fade-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

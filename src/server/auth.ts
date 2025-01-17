@@ -11,6 +11,8 @@ import Email from "next-auth/providers/email";
 import { env } from "~/env";
 import { db } from "~/server/db";
 
+import { sendNudgeEmail } from "./services/nudge";
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -50,12 +52,12 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   adapter: {
-    getUser: async (id) =>
-      db.user.findFirst({
-        where: { id },
-        include: { hiringManager: true, interviewer: true },
-      }) as Promise<AdapterUser | null>,
     ...(PrismaAdapter(db) as Adapter),
+    getUser: async (id) =>
+      db.user.findUnique({
+        where: { id },
+        include: { hiringManager: true, interviewer: true, applicant: true },
+      }) as Promise<AdapterUser | null>,
   },
   providers: [
     Email({
@@ -67,10 +69,19 @@ export const authOptions: NextAuthOptions = {
           } else {
             console.log("Email failed to send");
           }
+        } else {
         }
       },
+      from: "careers@tilli.pro",
     }),
   ],
+  pages: {
+    signIn: "/auth/sign-in",
+    signOut: "/auth/sign-out",
+    error: "/auth/error",
+    verifyRequest: "/auth/otp",
+    newUser: "/auth/create",
+  },
 };
 
 /**
@@ -80,31 +91,5 @@ export const authOptions: NextAuthOptions = {
  */
 export const getServerAuthSession = () => getServerSession(authOptions);
 
-export const sendVerificationEmail = async (email: string, otp: string) => {
-  const result = await fetch("https://app.nudge.net/api/v1/Nudge/Send", {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      authorization: env.NUDGE_API_KEY,
-    },
-    body: JSON.stringify({
-      nudgeId: env.NUDGE_OTP_ID,
-      toEmailAddress: email,
-      toName: "Tilli Team Member",
-      mergeTags: [
-        {
-          tagName: "otp",
-          tagValue: otp,
-        },
-      ],
-      channel: 0,
-    }),
-  });
-
-  if (result.status >= 200 && result.status <= 399) {
-    return true;
-  }
-
-  return false;
-};
+const sendVerificationEmail = async (email: string, otp: string) =>
+  sendNudgeEmail({ email }, env.NUDGE_OTP_ID, { otp });

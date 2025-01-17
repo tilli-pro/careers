@@ -2,7 +2,7 @@ import { env } from "~/env";
 
 interface ToEmail {
   email: string;
-  name: string;
+  name?: string;
 }
 
 interface MergeTag {

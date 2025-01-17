@@ -1,8 +1,9 @@
-import React, { forwardRef } from "react";
+import React, { Suspense, forwardRef } from "react";
 
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { unstable_after } from "next/server";
 
 import { cva } from "class-variance-authority";
 
@@ -16,6 +17,10 @@ import {
 } from "~/components/ui/navigation-menu";
 import { ThemeToggleSSR } from "~/features/theme";
 import { cn } from "~/lib/utils";
+import { visited as setVisited } from "~/server/actions/visited";
+import { api } from "~/trpc/server";
+
+import NumberTicker from "../ui/number-ticker";
 
 // import MobileDrawer from "./mobile-drawer";
 
@@ -94,7 +99,7 @@ const products = [
 ];
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
+  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 gap-1",
 );
 
 const ProductTab: React.FC = () => {
@@ -168,6 +173,9 @@ const Header: React.FC = async () => {
                       className={navigationMenuTriggerStyle()}
                     >
                       Open Roles
+                      <Suspense>
+                        <AllJobPosts />
+                      </Suspense>
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -183,6 +191,21 @@ const Header: React.FC = async () => {
         <MobileDrawer visited={!!visited?.value} />
       </div> */}
     </>
+  );
+};
+
+const AllJobPosts: React.FC = async () => {
+  const count = await api.post.count();
+
+  return (
+    <div
+      className="flex h-4 w-4 animate-shine items-center justify-center rounded bg-primary/10 p-1 font-mono text-[10px] font-bold leading-none text-accent-foreground transition-all group-hover:bg-blue-600"
+      style={{
+        animation: "fade-appear 1s ease-out",
+      }}
+    >
+      <NumberTicker value={count} />
+    </div>
   );
 };
 
