@@ -32,6 +32,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   description,
   background,
 }) => {
+  const descriptionParts = description.split(".").slice(0, -1);
   return (
     <Link
       className="mx-auto box-border w-full max-w-[560px] overflow-hidden rounded-lg shadow-lg lg:mx-0 lg:w-full lg:max-w-none"
@@ -50,7 +51,15 @@ const ProductItem: React.FC<ProductItemProps> = ({
         borderRadius={8}
         duration={24}
       >
-        <div className="relative box-border min-h-60 w-full flex-col">
+        <div
+          className="relative box-border min-h-60 w-full flex-col"
+          style={
+            {
+              "--product-color": gradient[0],
+              "--product-color-dark": gradient[1],
+            } as React.CSSProperties
+          }
+        >
           <div className="absolute z-[1] h-[calc(50%+28px)] w-full rounded-t-[6px]">
             <div className="mixed-blur absolute w-full rounded-t-[6px]" />
           </div>
@@ -73,12 +82,18 @@ const ProductItem: React.FC<ProductItemProps> = ({
             <div className="z-10 p-8">
               <div className="h-12 font-tilli text-3xl font-medium">{name}</div>
               <div>
-                {description
-                  .split(".")
-                  .slice(0, -1)
-                  .map((part, i) => (
-                    <p key={`part-${i.toString()}`}>{part}.</p>
-                  ))}
+                {descriptionParts.map((part, i) => (
+                  <p
+                    key={`part-${i.toString()}`}
+                    className={
+                      i === descriptionParts.length - 1
+                        ? "font-medium transition-all duration-1000 group-hover:font-semibold group-hover:tracking-wide group-hover:text-[var(--product-color)] group-hover:drop-shadow group-hover:dark:text-[var(--product-color-dark)]"
+                        : ""
+                    }
+                  >
+                    {part}.
+                  </p>
+                ))}
               </div>
             </div>
           </div>
@@ -160,7 +175,7 @@ const products: ProductItemProps[] = [
     ),
     slug: "nudge",
     Logo: NudgeIcon,
-    gradient: ["#7EE089", "#00AA00"],
+    gradient: ["#00AA00", "#7EE089"],
     description: "A nudge in time saves nine. Imagine what a million could do.",
     background: (
       <div className="absolute inset-0 [mask-image:radial-gradient(300px_circle_at_center,white,transparent)]">

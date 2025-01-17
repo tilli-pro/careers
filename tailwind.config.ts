@@ -155,23 +155,18 @@ export default {
         twinkle: {
           "0%": {
             opacity: "0",
-            rotate: "0deg",
           },
           "10%": {
             opacity: "1",
-            rotate: "180deg",
           },
           "50%": {
             opacity: "0",
-            rotate: "0deg",
           },
           "82%": {
             opacity: "1",
-            rotate: "540deg",
           },
           "100%": {
             opacity: "0",
-            rotate: "0deg",
           },
         },
       },

@@ -40,7 +40,7 @@ export const submitJobApp = async (data: FormData) => {
   const _shouldFastTrack = data.get("submit_true_for_fast_track_interview") as
     | "true"
     | "false";
-  const shouldFastTrack = _shouldFastTrack !== "true";
+  const shouldFastTrack = _shouldFastTrack !== "false";
   data.delete("submit_true_for_fast_track_interview");
 
   const role = await db.jobPosting.findFirst({
@@ -212,6 +212,7 @@ export const submitJobApp = async (data: FormData) => {
       const merge = {
         job_slug: role?.slug ?? "",
         job_name: role?.title ?? "",
+        job_hiring: role?.hiringManager.user.name ?? "Tilli Team",
         applicant_name: applicationSubmission.legalName,
         applicant_email: applicationSubmission.email,
         applicant_referral: applicationSubmission.attribution ?? "NONE",
