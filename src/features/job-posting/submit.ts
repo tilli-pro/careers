@@ -191,7 +191,7 @@ export const submitJobApp = async (data: FormData) => {
     } else if (question.includes("$ACTION_ID_")) {
       console.log("Skipping server action form field");
     } else {
-      console.log({
+      console.log("Unknown form field", {
         question,
         answer,
       });
