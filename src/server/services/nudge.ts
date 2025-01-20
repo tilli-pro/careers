@@ -29,7 +29,7 @@ export const sendNudgeEmail = async (
   if (attachments?.length) {
     for (const attachment of attachments) {
       emailAttachments.push({
-        content: Buffer.from(await attachment.arrayBuffer()).toString("hex"),
+        content: Buffer.from(await attachment.arrayBuffer()).toString("base64"),
         mimeType: attachment.type,
         fileName: attachment.name,
       });
