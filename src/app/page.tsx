@@ -96,10 +96,10 @@ export default async function Home() {
           Don't see a match? Drop us a line at{" "}
           <a
             className="text-blue-500 transition-all hover:text-cyan-500"
-            href="mailto:careers@tilli.pro"
+            href="mailto:career@tilli.pro"
             target="_blank"
           >
-            careers@tilli.pro
+            career@tilli.pro
           </a>{" "}
           and we'll stay in touch.
         </p>

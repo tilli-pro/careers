@@ -130,7 +130,7 @@ const products: ProductItemProps[] = [
       <div
         className={cn(
           className,
-          "h-[30px] w-[30px] text-right font-sans text-[28px] font-black group-hover:text-[var(--icon-color)]",
+          "relative z-0 bg-gradient-to-br from-red-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary",
         )}
       >
         X
@@ -166,7 +166,7 @@ const products: ProductItemProps[] = [
         <span
           className={
             (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-emerald-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
+            "relative z-0 bg-gradient-to-br from-emerald-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
           }
         >
           PRO

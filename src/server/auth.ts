@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
         } else {
         }
       },
-      from: "careers@tilli.pro",
+      from: "career@tilli.pro",
     }),
   ],
   pages: {
