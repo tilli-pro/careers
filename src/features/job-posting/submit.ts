@@ -127,21 +127,24 @@ export const submitJobApp = async (data: FormData) => {
     }
     try {
       const resumeKey = `${role?.slug ?? "NO_SLUG"}-${applicant.id}-${resume.name}`;
-      const command = new PutObjectCommand({
-        Body: Buffer.from(await resume.arrayBuffer()),
-        ContentType: resume.type,
-        ContentLength: resume.size,
-        Bucket: env.S3_BUCKET,
-        Key: resumeKey,
-        // Tagging: `jobId=${jobId}`,
-      });
-      const upload = await client.send(command);
-      if ((upload.$metadata.httpStatusCode ?? 400) < 400) {
-        application.resumeUrl = resumeKey;
-      } else {
-        console.log(upload);
-        throw new Error("Failed to upload resume");
-      }
+      application.resumeUrl = resumeKey;
+
+      // FIXME: re-enable this after dashboard setup is complete
+      // const command = new PutObjectCommand({
+      //   Body: Buffer.from(await resume.arrayBuffer()),
+      //   ContentType: resume.type,
+      //   ContentLength: resume.size,
+      //   Bucket: env.S3_BUCKET,
+      //   Key: resumeKey,
+      //   // Tagging: `jobId=${jobId}`,
+      // });
+      // const upload = await client.send(command);
+      // if ((upload.$metadata.httpStatusCode ?? 400) < 400) {
+      //   application.resumeUrl = resumeKey;
+      // } else {
+      //   console.log(upload);
+      //   throw new Error("Failed to upload resume");
+      // }
     } catch (e) {
       console.log(e);
       return redirect(`/roles/${slug}?failed=${SubmissionFailures.upload}`);
