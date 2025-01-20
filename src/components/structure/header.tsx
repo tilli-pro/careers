@@ -199,12 +199,15 @@ const AllJobPosts: React.FC = async () => {
 
   return (
     <div
-      className="flex h-4 w-4 animate-shine items-center justify-center rounded bg-primary/10 p-1 font-mono text-[10px] font-bold leading-none text-accent-foreground transition-all group-hover:bg-blue-600"
+      className="flex h-4 w-4 animate-shine items-center justify-center rounded bg-primary/10 p-1 font-mono text-[10px] font-bold leading-none text-primary transition-all group-hover:bg-blue-600 group-hover:text-white"
       style={{
         animation: "fade-appear 1s ease-out",
       }}
     >
-      <NumberTicker value={count} />
+      <NumberTicker
+        className="transition-all group-hover:text-white"
+        value={count}
+      />
     </div>
   );
 };
