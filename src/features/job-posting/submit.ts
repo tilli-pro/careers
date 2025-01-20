@@ -79,6 +79,7 @@ export const submitJobApp = async (data: FormData) => {
           connectOrCreate: {
             create: {
               name: data.get("name") as string,
+              email,
             },
             where: {
               email,
@@ -121,7 +122,7 @@ export const submitJobApp = async (data: FormData) => {
   // handle uploading file and setting url
   if (resume) {
     // 10MB limit
-    if (resume.size > 1024 * 1024 * 10) {
+    if (resume.size > 1024 * 1024 * 20) {
       return redirect(`/roles/${slug}?failed=${SubmissionFailures.sizelimit}`);
     }
     try {
@@ -234,6 +235,10 @@ export const submitJobApp = async (data: FormData) => {
         tagName: key,
         tagValue: value,
       }));
+      const hiringManagerEmail =
+        role?.hiringManager.user.email ?? env.HIRING_SUPER_EMAIL;
+      const superIsHiringManager =
+        role?.hiringManager?.user.email === env.HIRING_SUPER_EMAIL;
 
       try {
         const settled = await Promise.allSettled([
@@ -249,9 +254,7 @@ export const submitJobApp = async (data: FormData) => {
             env.NUDGE_SUBMIT_ID,
             mergeTags,
             resume ? [resume] : undefined,
-            role?.hiringManager.user.email
-              ? { emailCc: role?.hiringManager.user.email }
-              : undefined,
+            superIsHiringManager ? undefined : { emailCc: hiringManagerEmail },
           ),
         ]);
         settled.forEach((result) => {
