@@ -1,4 +1,4 @@
-// File: /Users/gin/tilli/careers/src/app/api/trpc/[trpc]/route.ts
+// File: /home/runner/work/careers/careers/src/app/api/trpc/[trpc]/route.ts
 import * as entry from '../../../../../../src/app/api/trpc/[trpc]/route.js'
 import type { NextRequest } from 'next/server.js'
 

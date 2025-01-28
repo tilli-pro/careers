@@ -1,4 +1,4 @@
-// File: /Users/gin/tilli/careers/src/app/tilli/page.tsx
+// File: /home/runner/work/careers/careers/src/app/tilli/page.tsx
 import * as entry from '../../../../src/app/tilli/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

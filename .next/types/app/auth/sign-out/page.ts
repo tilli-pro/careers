@@ -1,4 +1,4 @@
-// File: /Users/gin/tilli/careers/src/app/auth/sign-out/page.tsx
+// File: /home/runner/work/careers/careers/src/app/auth/sign-out/page.tsx
 import * as entry from '../../../../../src/app/auth/sign-out/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
