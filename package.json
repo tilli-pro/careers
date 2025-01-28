@@ -90,7 +90,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@tilli-pro/eslint-config": "^2.0.2",
+    "@tilli-pro/eslint-config": "0.3.7",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",

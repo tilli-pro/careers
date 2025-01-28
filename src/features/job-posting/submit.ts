@@ -37,9 +37,7 @@ export const submitJobApp = async (data: FormData) => {
     return redirect(`/roles/${slug}?failed=${SubmissionFailures.email}`);
   }
   data.delete("email");
-  const _shouldFastTrack = data.get("submit_true_for_fast_track_interview") as
-    | "true"
-    | "false";
+  const _shouldFastTrack = data.get("submit_true_for_fast_track_interview");
   const shouldFastTrack = _shouldFastTrack !== "false";
   data.delete("submit_true_for_fast_track_interview");
 
@@ -155,10 +153,8 @@ export const submitJobApp = async (data: FormData) => {
   data.delete("resume");
 
   for (const [question, answer] of data) {
-    if (/social-/.test(question)) {
+    if (/social-/.test(question) && answer) {
       // handle adding relevant socials
-      if (!answer) continue;
-
       const social = question.split("social-")[1]!;
       const type = social as SocialLink;
 
@@ -187,6 +183,13 @@ export const submitJobApp = async (data: FormData) => {
           questionId: question,
           answer: answer as string,
         } as any);
+      } else {
+        application.answers.create = [
+          {
+            questionId: question,
+            answer: answer as string,
+          },
+        ];
       }
     } else if (question.includes("$ACTION_ID_")) {
       console.log("Skipping server action form field");
@@ -211,7 +214,7 @@ export const submitJobApp = async (data: FormData) => {
       },
     });
 
-    if (applicationSubmission) {
+    if (applicationSubmission && role) {
       // for both candidate and to notify interviewers/ hiring managers
       const merge = {
         job_slug: role?.slug ?? "",
@@ -241,7 +244,7 @@ export const submitJobApp = async (data: FormData) => {
       const hiringManagerEmail =
         role?.hiringManager.user.email ?? env.HIRING_SUPER_EMAIL;
       const superIsHiringManager =
-        role?.hiringManager?.user.email === env.HIRING_SUPER_EMAIL;
+        role?.hiringManager.user.email === env.HIRING_SUPER_EMAIL;
 
       try {
         const settled = await Promise.allSettled([
