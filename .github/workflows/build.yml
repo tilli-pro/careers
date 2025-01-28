@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .next  # Upload .next folder to be used by the deploy job
+          path: careers/.next  # Upload .next folder to be used by the deploy job
           
   deploy:
     name: Deploy to build branch
