@@ -32,9 +32,26 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+        
+      - name: Setup .env
+        run: |
+          echo "DATABASE_URL={{ secrets.DATABASE_URL }}" >> .env
+          echo "NEXTAUTH_SECRET={{ secrets.NEXTAUTH_SECRET }}" >> .env
+          echo "NEXTAUTH_URL={{ secrets.NEXTAUTH_URL }}" >> .env
+          echo "NUDGE_API_KEY={{ secrets.NUDGE_API_KEY }}" >> .env
+          echo "NUDGE_OTP_ID={{ secrets.NUDGE_OTP_ID }}" >> .env
+          echo "NUDGE_SUBMIT_ID={{ secrets.NUDGE_SUBMIT_ID }}" >> .env
+          echo "NUDGE_NOTIFY_ID={{ secrets.NUDGE_NOTIFY_ID }}" >> .env
+          echo "HIRING_SUPER_EMAIL={{ secrets.HIRING_SUPER_EMAIL }}" >> .env
+          echo "HIRING_SUPER_NAME={{ secrets.HIRING_SUPER_NAME }}" >> .env
+          echo "AWS_REGION={{ secrets.AWS_REGION }}" >> .env
+          echo "AWS_ACCESS_KEY_ID={{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY={{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "S3_BUCKET={{ secrets.S3_BUCKET }}" >> .env
+          echo "NEXT_PUBLIC_ENV=production" >> .env
 
       - name: Build Next.js application
-        run: pnpm run build
+        run: pnpm build
 
       - name: Upload .next artifact
         uses: actions/upload-artifact@v3
