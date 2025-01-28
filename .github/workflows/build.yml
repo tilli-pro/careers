@@ -12,6 +12,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    outputs:
+      build-artifact: ${{ steps.upload-artifact.outputs.artifact-url }}
     steps:
       - name: Check out repository (main)
         uses: actions/checkout@v4
@@ -54,20 +56,16 @@ jobs:
 
       - name: Build Next.js application
         run: pnpm build
-        
-      - name: List build directory files
-        run: ls .build -la
-        
-      - name: Compress build artifacts
-        run: |
-          mkdir -p artifacts
-          zip -r -y -1 artifacts/next-build.zip .build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+          
+      - name: Upload artifacts
+        id: upload-artifact
+        uses: actions/upload-artifact@v4
         with:
           name: next-build
-          path: /home/runner/work/careers/careers/.build/
+          path: .next/
+          compression-level: 0
+          retention-days: 3
+          overwrite: true
           
   deploy:
     name: Deploy to build branch
@@ -82,15 +80,15 @@ jobs:
           ref: build
       
       - name: Download .next artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: next-build
           path: next-build  # Download artifact to a folder named next-build
 
       - name: Replace old .next with new build
         run: |
-          rm -rf .next .build
-          mv next-build/.build ./.next
+          rm -rf .next
+          mv next-build/.next ./.next
           rm -rf next-build
 
       - name: Commit and push changes
