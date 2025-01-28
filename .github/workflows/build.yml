@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: artifacts/next-build.zip
+          path: /home/runner/work/careers/careers/.build/
           
   deploy:
     name: Deploy to build branch
@@ -89,8 +89,8 @@ jobs:
 
       - name: Replace old .next with new build
         run: |
-          rm -rf .next
-          mv next-build/.next ./.next
+          rm -rf .next .build
+          mv next-build/.build ./.next
           rm -rf next-build
 
       - name: Commit and push changes
