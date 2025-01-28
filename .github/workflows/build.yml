@@ -56,7 +56,7 @@ jobs:
         run: pnpm build
         
       - name: Debug List files
-        run: ls -R
+        run: ls -la
 
       - name: Upload .next artifact
         uses: actions/upload-artifact@v3
