@@ -56,13 +56,13 @@ jobs:
         run: pnpm build
         
       - name: Debug List files
-        run: ls -la
+        run: ls .build -la
 
       - name: Upload .next artifact
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: careers/.next  # Upload .next folder to be used by the deploy job
+          path: .build  # Upload .next folder to be used by the deploy job
           
   deploy:
     name: Deploy to build branch
