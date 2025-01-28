@@ -57,12 +57,17 @@ jobs:
         
       - name: List build directory files
         run: ls .build -la
+        
+      - name: Compress build artifacts
+        run: |
+          mkdir -p artifacts
+          zip -r -y -1 artifacts/next-build.zip .build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .build/  # Upload .next folder to be used by the deploy job
+          path: artifacts/next-build.zip
           
   deploy:
     name: Deploy to build branch
