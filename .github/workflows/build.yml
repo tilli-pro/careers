@@ -1,5 +1,8 @@
 name: Build
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -41,7 +44,7 @@ jobs:
           touch .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
-          echo "NEXTAUTH_URL=http://localhost:3000" >> .env
+          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
           echo "NUDGE_API_KEY=${{ secrets.NUDGE_API_KEY }}" >> .env
           echo "NUDGE_OTP_ID=${{ secrets.NUDGE_OTP_ID }}" >> .env
           echo "NUDGE_SUBMIT_ID=${{ secrets.NUDGE_SUBMIT_ID }}" >> .env
