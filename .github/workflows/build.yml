@@ -19,6 +19,16 @@ jobs:
           # do a shallow clone of the repository from main branch only
           fetch-depth: 1
           ref: main
+          
+      - name: Set up Node with Corepack
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          check-latest: true
+      - name: Enable and prepare pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.12.1 --activate
 
       - name: Install dependencies
         run: pnpm install
