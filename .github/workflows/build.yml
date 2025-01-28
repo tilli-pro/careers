@@ -55,14 +55,14 @@ jobs:
       - name: Build Next.js application
         run: pnpm build
         
-      - name: Debug List files
+      - name: List build directory files
         run: ls .build -la
 
-      - name: Upload .next artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .build  # Upload .next folder to be used by the deploy job
+          path: .build/  # Upload .next folder to be used by the deploy job
           
   deploy:
     name: Deploy to build branch
