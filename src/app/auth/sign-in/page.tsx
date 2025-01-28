@@ -6,7 +6,7 @@ import { getCsrfToken } from "next-auth/react";
 import BasePage from "~/components/structure/base-page";
 
 const Page: React.FC = async () => {
-  const csrfToken = await getCsrfToken();
+  const csrfToken = await getCsrfToken().catch(() => "EMPTY_CSRF");
 
   return (
     <BasePage>

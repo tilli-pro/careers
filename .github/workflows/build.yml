@@ -86,13 +86,13 @@ jobs:
           name: next-build
           path: next-build  # Download artifact to a folder named next-build
       
-      - name: LS
+      - name: List build files
         run: ls next-build -la
 
       - name: Replace old .next with new build
         run: |
           rm -rf .next
-          mv next-build/.next ./.next
+          mv ./next-build ./.next
           rm -rf next-build
 
       - name: Commit and push changes
