@@ -87,7 +87,7 @@ jobs:
           path: next-build  # Download artifact to a folder named next-build
       
       - name: LS
-        run: ls -la
+        run: ls next-build -la
 
       - name: Replace old .next with new build
         run: |
