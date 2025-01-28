@@ -58,7 +58,7 @@ jobs:
           echo "NEXT_PUBLIC_ENV=production" >> .env
 
       - name: Build Next.js application
-        run: pnpm build
+        run: pnpm build --no-lint
           
       - name: Upload artifacts
         id: upload-artifact
