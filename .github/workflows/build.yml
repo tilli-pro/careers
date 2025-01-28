@@ -35,6 +35,8 @@ jobs:
         
       - name: Setup .env
         run: |
+          rm -rf .env
+          touch .env
           echo "DATABASE_URL={{ secrets.DATABASE_URL }}" >> .env
           echo "NEXTAUTH_SECRET={{ secrets.NEXTAUTH_SECRET }}" >> .env
           echo "NEXTAUTH_URL={{ secrets.NEXTAUTH_URL }}" >> .env
@@ -49,6 +51,7 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY={{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
           echo "S3_BUCKET={{ secrets.S3_BUCKET }}" >> .env
           echo "NEXT_PUBLIC_ENV=production" >> .env
+          echo {{ secrets.AWS_REGION }}
 
       - name: Build Next.js application
         run: pnpm build
