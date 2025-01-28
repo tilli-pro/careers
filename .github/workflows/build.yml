@@ -54,6 +54,9 @@ jobs:
 
       - name: Build Next.js application
         run: pnpm build
+        
+      - name: Debug List files
+        run: ls -R
 
       - name: Upload .next artifact
         uses: actions/upload-artifact@v3
