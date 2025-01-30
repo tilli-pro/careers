@@ -5,15 +5,15 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/auth/create/page": "app/auth/create/page.js",
   "/auth/error/page": "app/auth/error/page.js",
-  "/auth/otp/page": "app/auth/otp/page.js",
   "/auth/sign-in/page": "app/auth/sign-in/page.js",
-  "/auth/sign-out/page": "app/auth/sign-out/page.js",
+  "/auth/otp/page": "app/auth/otp/page.js",
   "/page": "app/page.js",
+  "/auth/sign-out/page": "app/auth/sign-out/page.js",
   "/product/monay/page": "app/product/monay/page.js",
   "/product/nudge/page": "app/product/nudge/page.js",
   "/product/page": "app/product/page.js",
   "/product/tillix/page": "app/product/tillix/page.js",
-  "/tilli/page": "app/tilli/page.js",
   "/roles/page": "app/roles/page.js",
+  "/tilli/page": "app/tilli/page.js",
   "/roles/[slug]/page": "app/roles/[slug]/page.js"
 }
