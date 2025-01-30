@@ -12,12 +12,12 @@ import ProductRow from "~/features/product/product-row";
 
 export default async function Home() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Hero />
 
       <BasePage
         as="section"
-        className="relative z-10 mb-16 flex min-h-0 flex-col items-center justify-center md:min-h-0 lg:mb-0 lg:min-h-screen"
+        className="relative z-10 mb-16 flex min-h-0 flex-col items-center justify-center md:min-h-0"
         id="tilli-about"
       >
         <div className="rounded-t-xl bg-background/15 p-4 backdrop-blur">
@@ -80,7 +80,7 @@ export default async function Home() {
         </div>
       </BasePage>
 
-      <BasePage as="section" className="relative z-10 md:min-h-[50vh]">
+      <BasePage as="section" className="relative z-10 min-h-0 md:min-h-[30vh]">
         <h2 className="self-center rounded-md bg-background/50 px-4 py-2 text-center font-sans backdrop-blur lg:text-left">
           What We Make
         </h2>
