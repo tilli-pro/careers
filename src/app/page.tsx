@@ -4,7 +4,7 @@ import Benefits from "~/components/pages/home/benefits";
 import Hero from "~/components/pages/home/hero";
 import "~/components/pages/home/topo/map.css";
 import BasePage from "~/components/structure/base-page";
-import { VelocityScroll } from "~/components/ui/scroll-based-velocity";
+import { SeamlessMarquee, VelocityScroll } from "~/components/ui/scroll-based-velocity";
 import { Separator } from "~/components/ui/separator";
 import { JobPostingList } from "~/features/job-posting";
 import { JobPostingListSkeleton } from "~/features/job-posting/job-posting-list.server";
@@ -57,7 +57,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="flex w-full bg-primary py-2 font-mono text-2xl font-bold text-secondary shadow-md">
-          <VelocityScroll
+          {/* <VelocityScroll
             className="select-none"
             text={
               <>
@@ -76,7 +76,23 @@ export default async function Home() {
               </>
             }
             default_velocity={2}
-          />
+          /> */}
+          <SeamlessMarquee>
+              <>
+                <span className="text-amber-400 dark:text-amber-500">Love</span>{" "}
+                the craft.{" "}
+                <span className="text-amber-400 dark:text-amber-500">
+                  Empower
+                </span>{" "}
+                everyone.{" "}
+                <span className="text-amber-400 dark:text-amber-500">
+                  Trust
+                </span>{" "}
+                the process.{" "}
+                <span className="text-amber-400 dark:text-amber-500">Grow</span>{" "}
+                as you go.
+              </>
+          </SeamlessMarquee>
         </div>
       </BasePage>
 

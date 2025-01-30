@@ -8,12 +8,6 @@ import { useTheme } from "../../../../features/theme";
 
 const defaultTransform = "rotateX(0) rotateZ(0) translate3d(0, 0, 0)";
 
-const calculatedZTransforms = new Array(18).fill(0).map((_, _i) => {
-  const i = _i+1;
-  return 600 * (i / 2) * (i / 18) * ((10 - i) / 15)
-});
-
-console.log(calculatedZTransforms);
 const calculatedZ = [
   10, 36, 70, 108, 139, 160, 164, 142, 90, 0, -136, -320, -564, -640, -700, -710, -700
 ];
