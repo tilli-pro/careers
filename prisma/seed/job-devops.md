@@ -34,5 +34,8 @@ We are seeking a skilled **DevOps Engineer** with a strong background in **AWS c
 - Opportunities for professional growth and certifications.
 - Flexible work hours and remote work options.
 
-## How to Apply
-Interested candidates can send their resume and a cover letter to **[email@example.com]** with the subject line "**DevOps Engineer (AWS Cloud Specialist)**".
+*We are an equal-opportunity employer and welcome applicants from all backgrounds.*
+
+---
+
+*Join us and help shape the future of our technology!*
