@@ -1,18 +1,19 @@
 {
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/api/trpc/[trpc]/route": "app/api/trpc/[trpc]/route.js",
+  "/api/cache-bust/route": "app/api/cache-bust/route.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/auth/error/page": "app/auth/error/page.js",
   "/auth/create/page": "app/auth/create/page.js",
+  "/auth/error/page": "app/auth/error/page.js",
   "/auth/otp/page": "app/auth/otp/page.js",
-  "/auth/sign-out/page": "app/auth/sign-out/page.js",
   "/auth/sign-in/page": "app/auth/sign-in/page.js",
+  "/auth/sign-out/page": "app/auth/sign-out/page.js",
+  "/page": "app/page.js",
   "/product/monay/page": "app/product/monay/page.js",
   "/product/nudge/page": "app/product/nudge/page.js",
-  "/page": "app/page.js",
   "/product/page": "app/product/page.js",
   "/product/tillix/page": "app/product/tillix/page.js",
-  "/roles/page": "app/roles/page.js",
   "/tilli/page": "app/tilli/page.js",
+  "/roles/page": "app/roles/page.js",
   "/roles/[slug]/page": "app/roles/[slug]/page.js"
 }
