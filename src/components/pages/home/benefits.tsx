@@ -184,6 +184,7 @@ const benefits: BenefitCardProps[] = [
       "from-stone-500 to-stone-300 dark:from-stone-700 dark:to-stone-500",
     titleClassName: "text-stone-950 dark:text-stone-50",
     title: "Relocation Support",
+    description: "Moving? We've got you covered. We'll help you get settled and ready to go in our Virginia office.",
   },
   {
     icon: (
@@ -198,6 +199,8 @@ const benefits: BenefitCardProps[] = [
       "from-slate-500 to-slate-300 dark:from-slate-700 dark:to-slate-500",
     titleClassName: "text-slate-950 dark:text-slate-50",
     title: "401K + Match",
+    description:
+      "We help you save for the future. We offer a 401K plan with a company match.",
   },
   {
     icon: (
@@ -212,6 +215,7 @@ const benefits: BenefitCardProps[] = [
       "from-zinc-500 to-zinc-300 dark:from-zinc-700 dark:to-zinc-500",
     titleClassName: "text-zinc-950 dark:text-zinc-50",
     title: "Workspace Stipend",
+    description: "New desk? Extra monitors? A new Macbook Pro with an M4 Pro chip? Enough said."
   },
 ];
 
