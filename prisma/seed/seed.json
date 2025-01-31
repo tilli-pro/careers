@@ -45,7 +45,7 @@
     {
       "title": "Fullstack Engineer",
       "slug": "fse-1122",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc.",
+      "description": "Design, build, deliver. Join the core team behind tilli's products and help us scale.",
       "post": "./job-fullstack.md",
       "allowedSocials": [
         "PERSONAL",
@@ -74,7 +74,7 @@
         90000,
         160000
       ],
-      "location": 2,
+      "location": 0,
       "department": 0,
       "hiringManager": 1
     },
@@ -93,7 +93,7 @@
         60000,
         85000
       ],
-      "location": 2,
+      "location": 0,
       "department": 1,
       "hiringManager": 2
     }

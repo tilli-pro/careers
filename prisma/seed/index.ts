@@ -22,6 +22,7 @@ async function main() {
 
   spinner.text = "Clearing database...";
 
+  await db.jobApplication.deleteMany();
   await db.jobPosting.deleteMany();
   await db.jobLocation.deleteMany();
   await db.department.deleteMany();
