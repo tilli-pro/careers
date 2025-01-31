@@ -7,6 +7,14 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'next.config.js'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'public/**'
+      - 'src/**'
+      - 'prisma/schema.prisma'
+      - 'prisma/migrations/**'
   pull_request:
     branches:
       - main
