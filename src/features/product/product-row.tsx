@@ -117,8 +117,8 @@ const products: ProductItemProps[] = [
         </span>
         <span
           className={
-            (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-red-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
+            (cn("font-sans",
+            "relative z-0 bg-gradient-to-br from-red-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary"))
           }
         >
           X
@@ -165,8 +165,8 @@ const products: ProductItemProps[] = [
         </span>
         <span
           className={
-            (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-emerald-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
+            (cn("font-sans",
+            "relative z-0 bg-gradient-to-br from-emerald-600 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary"))
           }
         >
           PRO
@@ -196,8 +196,8 @@ const products: ProductItemProps[] = [
         </span>
         <span
           className={
-            (cn("font-sans"),
-            "relative z-0 bg-gradient-to-br from-blue-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary")
+            (cn("font-sans",
+            "relative z-0 bg-gradient-to-br from-blue-500 to-primary/10 bg-clip-text text-4xl font-bold text-transparent drop-shadow transition-all duration-1000 [background-size:100%_100%] group-hover:[background-size:300%_200%] dark:via-primary/80 dark:to-primary"))
           }
         >
           GPS

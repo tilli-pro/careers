@@ -20,7 +20,7 @@ export const JobPostingListSkeleton: React.FC<{ amount?: number }> = ({
   <div className="my-4 flex h-full w-full flex-col gap-4">
     {[...Array(amount)].map((_, i) => (
       <div
-        key={`${i}-`}
+        key={`${i.toString()}-`}
         className="grid min-h-[114px] grid-flow-col grid-rows-1 items-center gap-4 rounded border border-border bg-background/80 backdrop-blur transition-colors duration-150 has-[a.role:hover]:border-blue-400 md:grid-cols-3"
       >
         <div className="flex flex-col gap-1 p-4">
@@ -44,10 +44,16 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
   showFilters,
   filterClassName,
 }) => {
-  const posts = await api.post.all(input);
+  const posts = await api.post.all();
   const { departments, locations } = multiGroupBy(posts, {
     departments: ["department.name", "department.slug"],
     locations: ["location.location", "location.slug"],
+  });
+  const initialPosts = posts.filter((post) => {
+    return (
+      (!input?.department || post.department.slug === input.department) &&
+      (!input?.location || post.location.slug === input.location)
+    );
   });
 
   return (
@@ -67,7 +73,7 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
             label: `${location.split(";;;")[0] ?? ""} (${roles.length})`,
           })),
         },
-        posts,
+        posts: initialPosts,
       }}
     >
       {showFilters && (
@@ -79,7 +85,7 @@ const JobPostingListSSR: React.FC<JobPostingListProps> = async ({
         </div>
       )}
       <div className="my-4 flex h-full w-full flex-col gap-4">
-        <JobPostingList initialPosts={posts} />
+        <JobPostingList initialPosts={initialPosts} />
       </div>
     </JobPostingListDataProvider>
   );

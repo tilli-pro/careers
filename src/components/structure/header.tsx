@@ -1,4 +1,4 @@
-import React, { Suspense, forwardRef } from "react";
+import { Suspense, forwardRef } from "react";
 
 import { cookies } from "next/headers";
 import Image from "next/image";

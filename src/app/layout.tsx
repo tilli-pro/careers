@@ -1,6 +1,6 @@
 import { Figtree, Lora, SUSE } from "next/font/google";
 
-import { type Metadata } from "next";
+import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 
 import Footer from "~/components/structure/footer";

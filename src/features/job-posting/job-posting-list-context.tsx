@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { api } from "~/trpc/react";
 
-import { JobPostingSchema } from "./types";
+import type { JobPostingSchema } from "./types";
 
 interface IJobPostingLinkContext {
   posts: JobPostingSchema[];
@@ -83,21 +83,6 @@ export const JobPostingListDataProvider: React.FC<
       },
     }));
   };
-
-  if (typeof window !== "undefined") {
-    useEffect(() => {
-      const observer = new MutationObserver(function (mutations) {
-        // console.log(document.location.href);
-      });
-
-      const config = {
-        childList: true,
-        subtree: true,
-      };
-
-      observer.observe(document.documentElement, config);
-    }, [window.location.href]);
-  }
 
   return (
     <JobPostingLinkContext.Provider value={{ filters, onFilterChange, posts }}>
