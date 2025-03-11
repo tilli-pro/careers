@@ -27,8 +27,15 @@ jobs:
     outputs:
       files: ${{ steps.filter.outputs.files }}
     steps:
-    # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v3
+    - name: Check out repository (main)
+      uses: actions/checkout@v4
+      with:
+        # do a shallow clone of the repository from main branch only
+        fetch-depth: 1
+        ref: main
+        
+    - name: Filter paths
+      uses: dorny/paths-filter@v3
       id: filter
       with:
         filters: |
