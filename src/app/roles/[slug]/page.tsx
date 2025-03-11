@@ -1,11 +1,9 @@
 import React, { Suspense } from "react";
-
+import * as runtime from "react/jsx-runtime";
 import Form from "next/form";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { unstable_after } from "next/server";
-
-import * as runtime from "react/jsx-runtime";
 import { faker } from "@faker-js/faker";
 import {
   SiDevdotto,
@@ -19,6 +17,7 @@ import { compile, run } from "@mdx-js/mdx";
 import { SocialLink } from "@prisma/client";
 import { AlertTriangle, Check, Globe } from "lucide-react";
 
+import type { FailureReason } from "~/features/job-posting/types";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -26,14 +25,14 @@ import { Label } from "~/components/ui/label";
 import { ShineBorder } from "~/components/ui/shine-border";
 import { Textarea } from "~/components/ui/textarea";
 import { submitJobApp } from "~/features/job-posting/submit";
-import {
-  FailureReason,
-  SubmissionFailures,
-} from "~/features/job-posting/types";
+import { SubmissionFailures } from "~/features/job-posting/types";
 import { cn, fmtCurrency, queryParam } from "~/lib/utils";
 import { dbAll } from "~/server/api/routers/post";
 import { db } from "~/server/db";
+
 import "~/styles/role.css";
+
+import JobPostingHeaderSSR from "~/features/job-posting/job-posting-header.server";
 import { api } from "~/trpc/server";
 
 export const revalidate = 3600;
@@ -73,8 +72,6 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
       })
     : null;
 
-  const [start, end] = post.salaryRange;
-
   unstable_after(async () => {
     if (submissionSuccessful && applicantId) {
       await db.jobApplication.update({
@@ -94,43 +91,12 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
   return (
     <>
       {!!failed && <SubmissionError failed={failed} />}
-      <div className="relative mb-12 grid grid-cols-3 items-start gap-4 md:grid-rows-1">
-        <article className="relative col-span-3 md:col-span-2">
-          <Link href="#apply" className="absolute right-4 top-4 z-[30]">
-            <Button
-              className={cn(
-                "md:hidden dark:text-white",
-                submissionSuccessful
-                  ? "bg-green-600 hover:bg-green-500/90"
-                  : "bg-blue-600 hover:bg-blue-600/90",
-              )}
-            >
-              {submissionSuccessful ? "Submitted!" : "Apply Now"}
-            </Button>
-          </Link>
-          <h1>{post.title}</h1>
-          <div className="flex flex-row gap-2">
-            <p>
-              <Link
-                className="hover:underline"
-                href={`/roles?${queryParam("department", post.department.slug)}`}
-              >
-                {post.department.name}
-              </Link>
-            </p>
-            <span>•</span>
-            <p>
-              <Link
-                className="hover:underline"
-                href={`roles?${queryParam("location", post.location.slug)}`}
-              >
-                {post.location.location}
-              </Link>
-            </p>
-          </div>
-          <p className="text-xs font-medium opacity-50">
-            {fmtCurrency(start ?? NaN)} - {fmtCurrency(end ?? NaN)}
-          </p>
+      <div className="relative mb-12 grid grid-cols-5 items-start gap-4 md:grid-rows-1">
+        <article className="relative col-span-5 md:col-span-3">
+          <JobPostingHeaderSSR
+            post={post}
+            submissionSuccessful={submissionSuccessful}
+          />
           <Suspense fallback={<div>Loading...</div>}>
             <JobRoleContent post={post.post} />
           </Suspense>
@@ -138,7 +104,7 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
 
         <aside
           id="apply"
-          className="col-span-3 mb-8 mt-4 self-start rounded p-4 md:sticky md:top-20 md:col-span-1"
+          className="col-span-5 mb-8 mt-4 self-start border-none p-4 md:sticky md:top-20 md:col-span-2"
         >
           {submissionSuccessful ? (
             <ShineBorder
@@ -165,9 +131,8 @@ const Page: React.FC<PageProps> = async ({ params, searchParams }) => {
               </Alert>
             </ShineBorder>
           ) : (
-            <div className="mb-6 text-center">
-              <h2 className="md:hidden">Apply to be a {post.title}</h2>
-              <h2 className="hidden md:block">Apply Now</h2>
+            <div className="text-center">
+              <h2 className="mb-6 md:hidden">Apply to be a {post.title}</h2>
             </div>
           )}
 

@@ -32,8 +32,8 @@ We are seeking a skilled Fullstack Engineer to join our product development team
 - Flexible work hours and generous workspace stipend.
 
 
-*Tilli is an equal-opportunity employer. We currently only accept applicants only from within the United States.*
+> *Tilli is an equal-opportunity employer. We currently only accept applicants from within the United States.*
 
 ---
 
-*Join us and help shape the future of our technology!*
+*Join us and help shape the future of digital experiences.*

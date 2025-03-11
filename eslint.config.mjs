@@ -13,11 +13,9 @@ export default [
   {
     rules: {
       "@next/next/no-duplicate-head": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/dot-notation": "off",
+      "@typescript-eslint/no-empty-function": "off",
     },
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.json"
-      }
-    }
   },
 ];

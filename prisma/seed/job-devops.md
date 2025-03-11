@@ -35,7 +35,7 @@ We are seeking a skilled **DevOps Engineer** with a strong background in **AWS c
 - Flexible work hours and remote work options.
 
 
-*Tilli is an equal-opportunity employer. We currently only accept applicants only from within the United States.*
+> *Tilli is an equal-opportunity employer. We currently only accept applicants from within the United States.*
 
 ---
 

@@ -32,7 +32,7 @@ We are looking for a creative and detail-oriented Product Designer to join our t
 - Professional growth opportunities and support for ongoing learning.
 
 
-*Tilli is an equal-opportunity employer. We currently only accept applicants only from within the United States.*
+> *Tilli is an equal-opportunity employer. We currently only accept applicants from within the United States.*
 
 ---
 
