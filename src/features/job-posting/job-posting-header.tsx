@@ -7,6 +7,7 @@ import type { api } from "~/trpc/server";
 import { Button } from "~/components/ui/button";
 import { cn, fmtCurrency, queryParam } from "~/lib/utils";
 
+// TODO: Does Date.now involve the creation of a Date object? If so, this might actually be less performant than not throttling at all
 const throttle = (fn: () => any, delay: number) => {
   let time = Date.now();
 
