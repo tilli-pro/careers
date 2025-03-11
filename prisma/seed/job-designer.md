@@ -31,7 +31,8 @@ We are looking for a creative and detail-oriented Product Designer to join our t
 - Collaborative and inclusive work environment.
 - Professional growth opportunities and support for ongoing learning.
 
-*We are an equal-opportunity employer and welcome applicants from all backgrounds.*
+
+*Tilli is an equal-opportunity employer. We currently only accept applicants only from within the United States.*
 
 ---
 

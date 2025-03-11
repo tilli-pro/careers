@@ -1,5 +1,5 @@
 ## Job Summary
-We are seeking a skilled Fullstack Engineer to join our dynamic development team. In this role, you will be responsible for designing, developing, and maintaining both front-end and back-end systems. You will work closely with cross-functional teams to deliver scalable and robust applications that provide an excellent user experience.
+We are seeking a skilled Fullstack Engineer to join our product development team. In this role, you will be responsible for designing, developing, and maintaining both front-end and back-end systems. You will work closely with cross-functional teams to deliver scalable and robust applications that provide an excellent user experience.
 
 ## Key Responsibilities
 - Develop and maintain front-end and back-end applications using modern frameworks and technologies.
@@ -31,7 +31,8 @@ We are seeking a skilled Fullstack Engineer to join our dynamic development team
 - Collaborative and inclusive work environment.
 - Flexible work hours and generous workspace stipend.
 
-*We are an equal-opportunity employer and welcome applicants from all backgrounds.*
+
+*Tilli is an equal-opportunity employer. We currently only accept applicants only from within the United States.*
 
 ---
 
