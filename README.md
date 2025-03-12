@@ -1,6 +1,6 @@
 # Tilli Careers
 
-This website powers [careers.tilli.pro](https://careers.tilli.pro), where all Tilli hiring happens. We're building this into a mostly full-featured ATS, but at the moment it only accepts job applications and handles notifications related to those applications.
+This repository powers [careers.tilli.pro](https://careers.tilli.pro), where all Tilli hiring happens. We're building this into a mostly full-featured ATS, but at the moment it only accepts job applications and handles notifications related to those applications.
 
 ## Getting Started
 
