@@ -32,6 +32,7 @@ import { db } from "~/server/db";
 
 import "~/styles/role.css";
 
+import { env } from "~/env";
 import JobPostingHeaderSSR from "~/features/job-posting/job-posting-header.server";
 import { api } from "~/trpc/server";
 
@@ -207,15 +208,15 @@ const SubmissionError: React.FC<SubmissionErrorProps> = ({ failed }) => {
       case SubmissionFailures.resume:
         return "Please submit a valid resume for your application.";
       case SubmissionFailures.create:
-        return "There was an issue submitting your application. Please try again. If this issue persists, please contact us at career@tilli.pro.";
+        return `There was an issue submitting your application. Please try again. If this issue persists, please contact us at ${env.NEXT_PUBLIC_CAREERS_EMAIL}.`;
       case SubmissionFailures.exists:
-        return "Our records indicate you already have an active application with us for this role. If you believe this is a mistake, please contact us at career@tilli.pro.";
+        return `Our records indicate you already have an active application with us for this role. If you believe this is a mistake, please contact us at ${env.NEXT_PUBLIC_CAREERS_EMAIL}.`;
       case SubmissionFailures.sizelimit:
         return "Please upload a resume that is less than 20MB in size.";
       case SubmissionFailures.upload:
-        return "There was an issue submitting your application. Please try again. If this issue persists, please contact us at career@tilli.pro.";
+        return `There was an issue submitting your application. Please try again. If this issue persists, please contact us at ${env.NEXT_PUBLIC_CAREERS_EMAIL}.`;
       default:
-        return "An unknown error occurred. If this persists, please contact us at career@tilli.pro.";
+        return `An unknown error occurred. If this persists, please contact us at ${env.NEXT_PUBLIC_CAREERS_EMAIL}.`;
     }
   };
 

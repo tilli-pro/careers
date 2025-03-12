@@ -1,16 +1,12 @@
+import type { HiringManager, Interviewer } from "@prisma/client";
+import type { DefaultSession, NextAuthOptions } from "next-auth";
+import type { Adapter, AdapterUser } from "next-auth/adapters";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { HiringManager, Interviewer } from "@prisma/client";
-import {
-  type DefaultSession,
-  type NextAuthOptions,
-  getServerSession,
-} from "next-auth";
-import { type Adapter, AdapterUser } from "next-auth/adapters";
+import { getServerSession } from "next-auth";
 import Email from "next-auth/providers/email";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
-
 import { sendNudgeEmail } from "./services/nudge";
 
 /**
@@ -70,9 +66,10 @@ export const authOptions: NextAuthOptions = {
             console.log("Email failed to send");
           }
         } else {
+          console.log("Not a tilli email");
         }
       },
-      from: "career@tilli.pro",
+      from: env.NEXT_PUBLIC_CAREERS_EMAIL,
     }),
   ],
   pages: {

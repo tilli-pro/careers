@@ -42,6 +42,10 @@ export const env = createEnv({
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
+  
+  shared: {
+    NEXT_PUBLIC_CAREERS_EMAIL: z.string().email(),
+  },
 
   /**
    * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
@@ -62,6 +66,7 @@ export const env = createEnv({
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     S3_BUCKET: process.env.S3_BUCKET,
+    NEXT_PUBLIC_CAREERS_EMAIL: process.env.CAREERS_EMAIL
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

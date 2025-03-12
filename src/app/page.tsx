@@ -2,10 +2,16 @@ import { Suspense } from "react";
 
 import Benefits from "~/components/pages/home/benefits";
 import Hero from "~/components/pages/home/hero";
+
 import "~/components/pages/home/topo/map.css";
+
 import BasePage from "~/components/structure/base-page";
-import { SeamlessMarquee, VelocityScroll } from "~/components/ui/scroll-based-velocity";
+import {
+  SeamlessMarquee,
+  VelocityScroll,
+} from "~/components/ui/scroll-based-velocity";
 import { Separator } from "~/components/ui/separator";
+import { env } from "~/env";
 import { JobPostingList } from "~/features/job-posting";
 import { JobPostingListSkeleton } from "~/features/job-posting/job-posting-list.server";
 import ProductRow from "~/features/product/product-row";
@@ -78,20 +84,18 @@ export default async function Home() {
             default_velocity={2}
           /> */}
           <SeamlessMarquee>
-              <>
-                <span className="text-amber-400 dark:text-amber-500">Love</span>{" "}
-                the craft.{" "}
-                <span className="text-amber-400 dark:text-amber-500">
-                  Empower
-                </span>{" "}
-                everyone.{" "}
-                <span className="text-amber-400 dark:text-amber-500">
-                  Trust
-                </span>{" "}
-                the process.{" "}
-                <span className="text-amber-400 dark:text-amber-500">Grow</span>{" "}
-                as you go.
-              </>
+            <>
+              <span className="text-amber-400 dark:text-amber-500">Love</span>{" "}
+              the craft.{" "}
+              <span className="text-amber-400 dark:text-amber-500">
+                Empower
+              </span>{" "}
+              everyone.{" "}
+              <span className="text-amber-400 dark:text-amber-500">Trust</span>{" "}
+              the process.{" "}
+              <span className="text-amber-400 dark:text-amber-500">Grow</span>{" "}
+              as you go.
+            </>
           </SeamlessMarquee>
         </div>
       </BasePage>
@@ -112,10 +116,10 @@ export default async function Home() {
           Don't see a match? Drop us a line at{" "}
           <a
             className="text-blue-500 transition-all hover:text-cyan-500"
-            href="mailto:career@tilli.pro"
+            href={`mailto:${env.NEXT_PUBLIC_CAREERS_EMAIL}`}
             target="_blank"
           >
-            career@tilli.pro
+            {env.NEXT_PUBLIC_CAREERS_EMAIL}
           </a>{" "}
           and we'll stay in touch.
         </p>
