@@ -95,6 +95,7 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
           echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" >> .env
           echo "CAREERS_EMAIL=${{ secrets.CAREERS_EMAIL }}" >> .env
+          echo "DEPLOY_KEY=${{ secrets.DEPLOY_KEY }}" >> .env
           echo "NEXT_PUBLIC_ENV=production" >> .env
 
       - name: Build Next.js application
