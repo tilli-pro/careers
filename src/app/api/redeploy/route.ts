@@ -18,8 +18,12 @@ export const POST = async (req: NextRequest) => {
     return new NextResponse(undefined, { status: 401 });
   }
 
-  const json = JSON.parse(payload);
-  console.log(json);
+  try {
+    const json = JSON.parse(payload);
+    console.log(json);
+  } catch (e) {
+    console.log(e);
+  }
 
   return new NextResponse(undefined, { status: 200 });
 };
