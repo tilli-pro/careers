@@ -13,7 +13,7 @@ const JobPostingHeaderFallback: React.FC<JobPostingHeaderProps> = ({
   const [start, end] = post.salaryRange;
 
   return (
-    <div className="sticky top-16 rounded-b bg-black/70 pb-4 backdrop-blur">
+    <div className="sticky top-16 rounded-b bg-background/70 pb-4 backdrop-blur">
       <div className="row flex w-full items-start justify-between gap-4">
         <h1>{post.title}</h1>
         <Link href="#apply" className="md:hidden">

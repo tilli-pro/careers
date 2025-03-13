@@ -53,7 +53,7 @@ export const JobPostingHeader: React.FC<JobPostingHeaderProps> = ({
   return (
     <div
       className={cn(
-        "sticky top-16 -mx-4 rounded-b bg-black/70 px-4 backdrop-blur transition-all",
+        "sticky top-16 -mx-4 rounded-b bg-background/70 px-4 backdrop-blur transition-all",
         {
           "pt-2": mini,
         },
