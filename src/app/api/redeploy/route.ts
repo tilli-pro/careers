@@ -44,6 +44,9 @@ export const POST = async (req: NextRequest) => {
         exec("sh redeploy.sh");
 
         return new NextResponse(undefined, { status: 200 });
+      } else {
+        console.log("Not a build event");
+        return new NextResponse(undefined, { status: 202 });
       }
     }
   } catch (e) {
