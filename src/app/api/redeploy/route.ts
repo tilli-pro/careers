@@ -23,6 +23,7 @@ export const POST = async (req: NextRequest) => {
     console.log(json);
   } catch (e) {
     console.log(e);
+    console.log("error parsing");
   }
 
   return new NextResponse(undefined, { status: 200 });
