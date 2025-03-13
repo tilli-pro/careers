@@ -26,7 +26,6 @@ export const POST = async (req: NextRequest) => {
 
   try {
     const json = JSON.parse(payload);
-    console.log(json);
     if ("repository" in json && "ref" in json) {
       if (json.ref === "refs/heads/build") {
         console.log("Received build event. Redeploying...");
