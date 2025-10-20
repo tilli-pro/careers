@@ -7,18 +7,6 @@ import type { api } from "~/trpc/server";
 import { Button } from "~/components/ui/button";
 import { cn, fmtCurrency, queryParam } from "~/lib/utils";
 
-// TODO: Does Date.now involve the creation of a Date object? If so, this might actually be less performant than not throttling at all
-const throttle = (fn: () => any, delay: number) => {
-  let time = Date.now();
-
-  return () => {
-    if (time + delay - Date.now() <= 0) {
-      fn();
-      time = Date.now();
-    }
-  };
-};
-
 export interface JobPostingHeaderProps {
   post: Exclude<Awaited<ReturnType<typeof api.post.bySlug>>, null>;
   submissionSuccessful: {
@@ -33,13 +21,13 @@ export const JobPostingHeader: React.FC<JobPostingHeaderProps> = ({
   const [mini, setMini] = useState(false);
 
   useEffect(() => {
-    const scrollListener = throttle(() => {
-      if (window.scrollY > 40) {
+    const scrollListener = () => {
+      if (window.scrollY > 32) {
         setMini(true);
       } else {
         setMini(false);
       }
-    }, 10);
+    };
 
     window.addEventListener("scroll", scrollListener);
 
@@ -53,10 +41,7 @@ export const JobPostingHeader: React.FC<JobPostingHeaderProps> = ({
   return (
     <div
       className={cn(
-        "sticky top-16 -mx-4 rounded-b bg-background/70 px-4 backdrop-blur transition-all",
-        {
-          "pt-2": mini,
-        },
+        "sticky top-16 -mx-4 rounded-b bg-background/70 px-4 pt-2 backdrop-blur transition-all",
       )}
       id="job-posting-header"
     >
@@ -66,7 +51,9 @@ export const JobPostingHeader: React.FC<JobPostingHeaderProps> = ({
         )}
       >
         <h1
-          className={cn("transition-all", { "text-2xl": mini, "mb-0": mini })}
+          className={cn("transition-all", mini ? "text-2xl" : "text-4xl", {
+            "mb-0": mini,
+          })}
         >
           {post.title}
         </h1>

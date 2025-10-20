@@ -1,10 +1,7 @@
-import { Suspense, forwardRef } from "react";
-
+import { forwardRef, Suspense } from "react";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { unstable_after } from "next/server";
-
 import { cva } from "class-variance-authority";
 
 import {
@@ -19,7 +16,6 @@ import { ThemeToggleSSR } from "~/features/theme";
 import { cn } from "~/lib/utils";
 import { visited as setVisited } from "~/server/actions/visited";
 import { api } from "~/trpc/server";
-
 import NumberTicker from "../ui/number-ticker";
 
 // import MobileDrawer from "./mobile-drawer";
@@ -99,7 +95,7 @@ const products = [
 ];
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 gap-1",
+  "group inline-flex h-10 w-max items-center justify-center gap-1 rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50",
 );
 
 const ProductTab: React.FC = () => {

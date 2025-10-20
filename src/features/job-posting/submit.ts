@@ -1,24 +1,13 @@
 "use server";
 
+import type { SocialLink } from "@prisma/client";
 import { notFound, redirect } from "next/navigation";
-
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { Prisma, SocialLink } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
 import { sendNudgeEmail } from "~/server/services/nudge";
-
 import { SubmissionFailures } from "./types";
-
-// TODO: setup env for this
-const client = new S3Client({
-  region: env.AWS_REGION,
-  credentials: {
-    accessKeyId: env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-  },
-});
 
 const applicationValidator =
   Prisma.validator<Prisma.JobApplicationUncheckedCreateInput>();
@@ -153,9 +142,13 @@ export const submitJobApp = async (data: FormData) => {
   data.delete("resume");
 
   for (const [question, answer] of data) {
-    if (/social-/.test(question) && answer) {
+    if (question.includes("social-") && answer) {
       // handle adding relevant socials
-      const social = question.split("social-")[1]!;
+      const social = question.split("social-")[1];
+      if (!social) {
+        console.log("No social link found");
+        continue;
+      }
       const type = social as SocialLink;
 
       if (!applicant.user?.socials.find((s) => s.type === type)) {
@@ -177,7 +170,7 @@ export const submitJobApp = async (data: FormData) => {
           },
         });
       }
-    } else if (/answerid-/.test(question)) {
+    } else if (question.includes("answerid-")) {
       if (Array.isArray(application.answers.create)) {
         application.answers.create.push({
           questionId: question,

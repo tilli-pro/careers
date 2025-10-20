@@ -1,33 +1,30 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
-
+import { createContext, useContext, useLayoutEffect, useState } from "react";
 import CookieJS from "js-cookie";
 
 const getTheme = () =>
   typeof document === "undefined"
-    ? (undefined as any) // ssr shenanigrams
-    : ((document.documentElement.dataset.mode === "dark" ? "dark" : "light") as
-        | "light"
-        | "dark");
+    ? (undefined as unknown as "dark" | "light") // ssr shenanigrams
+    : document.documentElement.dataset.mode === "dark"
+      ? "dark"
+      : "light";
 
 const ThemeContext = createContext<{
   theme: "light" | "dark";
   setTheme: (theme: "light" | "dark") => void;
   toggleTheme: () => void;
-}>({
-  theme: getTheme(),
-  setTheme: () => {},
-  toggleTheme: () => {},
-});
+} | null>(null);
 
-export const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => {
+  const ctx = useContext(ThemeContext);
+
+  if (!ctx) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+
+  return ctx;
+};
 
 export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
   children,

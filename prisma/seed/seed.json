@@ -25,6 +25,14 @@
     {
       "name": "Sales",
       "slug": "sales"
+    },
+    {
+      "name": "Project Management",
+      "slug": "pmo"
+    },
+    {
+      "name": "Delivery",
+      "slug": "delivery"
     }
   ],
   "hiringManagers": [
@@ -39,6 +47,14 @@
     {
       "name": "Avdhoot Sherkar",
       "email": "avdhoots@tilli.pro"
+    },
+    {
+      "name": "Aravind Nagareddy",
+      "email": "aravindn@tilli.pro"
+    },
+    {
+      "name": "Sandeep Tamina",
+      "email": "sandeep@tilli.pro"
     }
   ],
   "roles": [
@@ -47,6 +63,7 @@
       "slug": "fse-1122",
       "description": "Design, build, deliver. Join the core team behind tilli's products and help us scale.",
       "post": "./job-fullstack.md",
+      "active": true,
       "allowedSocials": [
         "PERSONAL",
         "GITHUB",
@@ -65,6 +82,7 @@
       "slug": "doe-4853",
       "description": "Help manage our growing infrastructure and ensure our services are always up and running on our AWS stack.",
       "post": "./job-devops.md",
+      "active": true,
       "allowedSocials": [
         "PERSONAL",
         "GITHUB",
@@ -83,6 +101,7 @@
       "slug": "pde-1010",
       "description": "Design the next generation of our product and work closely with our engineering team to bring it to life.",
       "post": "./job-designer.md",
+      "active": false,
       "allowedSocials": [
         "PERSONAL",
         "GITHUB",
@@ -96,6 +115,22 @@
       "location": 0,
       "department": 1,
       "hiringManager": 2
+    },
+    {
+      "title": "Business Analyst",
+      "slug": "sba-1010"
+    },
+    {
+      "title": "Business Analyst",
+      "slug": "dba-1010"
+    },
+    {
+      "title": "Project Manager",
+      "slug": "pmo-0113"
+    },
+    {
+      "title": "Pre-sales Engineer",
+      "slug": "pse-2320"
     }
   ]
 }
